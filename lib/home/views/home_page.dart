@@ -1,4 +1,5 @@
 import 'package:appainter/advanced_theme/advanced_theme.dart';
+import 'package:appainter/app_config/app_config.dart';
 import 'package:appainter/basic_theme/basic_theme.dart';
 import 'package:appainter/common/common.dart';
 import 'package:appainter/home/home.dart';
@@ -209,6 +210,7 @@ class _Editors extends StatelessWidget {
             children: [
               BasicThemeEditor(),
               AdvancedEditor(),
+              AppConfigEditor(),
             ],
           ),
         ),

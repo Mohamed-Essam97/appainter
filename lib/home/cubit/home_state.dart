@@ -2,7 +2,7 @@ part of 'home_cubit.dart';
 
 enum HomeStatus { initial, success }
 
-enum EditMode { basic, advanced }
+enum EditMode { basic, advanced, appConfig }
 
 @CopyWith()
 @immutable
@@ -13,6 +13,7 @@ class HomeState extends Equatable {
   final bool isSdkShowed;
   final bool isImportingTheme;
   final ThemeMode themeMode;
+  final AppConfig appConfig;
 
   const HomeState({
     this.status = HomeStatus.initial,
@@ -21,6 +22,7 @@ class HomeState extends Equatable {
     this.isSdkShowed = false,
     this.isImportingTheme = false,
     this.themeMode = ThemeMode.system,
+    required this.appConfig,
   });
 
   @override
@@ -32,6 +34,7 @@ class HomeState extends Equatable {
       isSdkShowed,
       isImportingTheme,
       themeMode,
+      appConfig,
     ];
   }
 
@@ -39,6 +42,7 @@ class HomeState extends Equatable {
   String toString() {
     return 'HomeState { status: $status, editMode: $editMode, '
         'themeUsage: ${themeUsage != null}, isSdkShowed: $isSdkShowed, '
-        'isImportingTheme: $isImportingTheme, themeMode: $themeMode }';
+        'isImportingTheme: $isImportingTheme, themeMode: $themeMode, '
+        'appConfig: ${appConfig.name} }';
   }
 }

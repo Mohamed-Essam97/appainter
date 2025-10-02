@@ -44,8 +44,17 @@ class ExportButton extends StatelessWidget {
 
     if (editMode == EditMode.basic) {
       theme = context.read<BasicThemeCubit>().state.theme;
-    } else {
+    } else if (editMode == EditMode.advanced) {
       theme = _getAdvancedTheme(context);
+    } else {
+      // For appConfig mode, use the current theme from basic or advanced
+      final homeState = context.read<HomeCubit>().state;
+      if (homeState.editMode == EditMode.appConfig) {
+        // Default to basic theme for app config export
+        theme = context.read<BasicThemeCubit>().state.theme;
+      } else {
+        theme = _getAdvancedTheme(context);
+      }
     }
 
     context.read<HomeCubit>().themeExported(theme);
