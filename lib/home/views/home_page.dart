@@ -229,7 +229,6 @@ class _EditModeHeader extends StatelessWidget {
         Expanded(
           child: _EditModeTabBar(),
         ),
-        const Spacer(),
         const _EditModeActions(),
       ],
     );
