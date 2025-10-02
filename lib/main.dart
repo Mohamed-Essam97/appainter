@@ -8,7 +8,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:universal_io/io.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -38,17 +37,7 @@ Future<void> main() async {
 
   if (kDebugMode) {
     _runApp();
-  } else {
-    await SentryFlutter.init(
-      (options) {
-        options.dsn =
-            'https://5433eccdd090bc38cf6de20c8a5be8c4@o4507475452231680.ingest.us.sentry.io/4507475454590976';
-        options.tracesSampleRate = 0.8;
-        options.profilesSampleRate = 0.8;
-      },
-      appRunner: _runApp,
-    );
-  }
+  } else {}
 }
 
 Future<void> _runApp() async {

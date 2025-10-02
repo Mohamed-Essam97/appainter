@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:json_theme/json_theme.dart';
+import '../utils/theme_serializer.dart';
 import 'package:pretty_json/pretty_json.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,16 +53,14 @@ class HomeRepository {
         themeStr = await file.readAsString();
       }
 
-      final themeJson = jsonDecode(themeStr);
-      theme = ThemeDecoder.decodeThemeData(themeJson, validate: false);
+      theme = ThemeSerializer.decodeThemeData(themeStr);
     }
 
     return theme;
   }
 
   Future<bool> exportTheme(ThemeData theme) async {
-    final themeJson = ThemeEncoder.encodeThemeData(theme);
-    final themeStr = prettyJson(themeJson);
+    final themeStr = ThemeSerializer.encodeThemeData(theme);
     final themeBytes = Uint8List.fromList(themeStr.codeUnits);
 
     if (kIsWeb) {

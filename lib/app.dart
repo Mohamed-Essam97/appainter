@@ -231,7 +231,7 @@ class _MaterialAppState extends State<_MaterialApp> {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return MaterialApp(
-          title: 'Appainter',
+          title: 'iometer Community Builder',
           theme: ThemeData.from(
             colorScheme: ColorScheme.fromSeed(
               seedColor: _seedColor,
@@ -243,6 +243,7 @@ class _MaterialAppState extends State<_MaterialApp> {
               brightness: Brightness.dark,
             ),
           ),
+          debugShowCheckedModeBanner: false,
           themeMode: state.themeMode,
           home: state.status == HomeStatus.success
               ? const HomePage()

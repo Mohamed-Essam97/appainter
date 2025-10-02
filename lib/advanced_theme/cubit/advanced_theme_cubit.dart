@@ -65,7 +65,7 @@ class AdvancedThemeCubit extends Cubit<AdvancedThemeState> {
 
   void themeChanged(ThemeData theme) {
     colorThemeCubit.themeChanged(theme);
-    appBarThemeCubit.themeChanged(theme.appBarTheme);
+    appBarThemeCubit.themeChanged(theme.appBarTheme as AppBarTheme);
     tabBarThemeCubit.themeChanged(theme.tabBarTheme);
     bottomNavigationBarThemeCubit.themeChanged(theme.bottomNavigationBarTheme);
     floatingActionButtonThemeCubit.themeChanged(
@@ -76,7 +76,8 @@ class AdvancedThemeCubit extends Cubit<AdvancedThemeState> {
     outlinedButtonThemeCubit.styleChanged(theme.outlinedButtonTheme.style);
     textButtonThemeCubit.styleChanged(theme.textButtonTheme.style);
     iconThemeCubit.themeChanged(theme.iconTheme);
-    inputDecorationThemeCubit.themeChanged(theme.inputDecorationTheme);
+    inputDecorationThemeCubit
+        .themeChanged(theme.inputDecorationTheme as InputDecorationTheme);
     switchThemeCubit.themeChanged(theme.switchTheme);
     checkboxThemeCubit.themeChanged(theme.checkboxTheme);
     radioThemeCubit.themeChanged(theme.radioTheme);
