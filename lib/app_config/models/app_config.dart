@@ -277,6 +277,7 @@ class AppConfig extends Equatable {
   final String name;
   final String version;
   final String packageName;
+  final AppSettings settings;
   final AppVariations variations;
 
   const AppConfig({
@@ -285,6 +286,7 @@ class AppConfig extends Equatable {
     required this.name,
     required this.version,
     required this.packageName,
+    required this.settings,
     required this.variations,
   });
 
@@ -300,6 +302,7 @@ class AppConfig extends Equatable {
       name: 'Lasirena',
       version: '1.0.0',
       packageName: 'com.lasirena.app',
+      settings: AppSettings.defaultSettings(),
       variations: AppVariations.defaultVariations(),
     );
   }
@@ -311,6 +314,7 @@ class AppConfig extends Equatable {
       'name': name,
       'version': version,
       'packageName': packageName,
+      'settings': settings.toJson(),
       'variations': variations.toJson(),
     };
   }
@@ -322,12 +326,13 @@ class AppConfig extends Equatable {
       name: json['name'] as String,
       version: json['version'] as String,
       packageName: json['packageName'] as String,
+      settings: AppSettings.fromJson(json['settings'] as Map<String, dynamic>? ?? const {}),
       variations: AppVariations.fromJson(json['variations'] as Map<String, dynamic>),
     );
   }
 
   @override
-  List<Object?> get props => [logo, icon, name, version, packageName, variations];
+  List<Object?> get props => [logo, icon, name, version, packageName, settings, variations];
 }
 
 class AppLogo extends Equatable {
@@ -377,4 +382,175 @@ class AppLogo extends Equatable {
 
   @override
   List<Object?> get props => [defaultLogo, dark, small, splashScreen];
+}
+
+class AppSettings extends Equatable {
+  final bool isPrivateApp;
+  final bool haveAccountSelector;
+  final CommunityGuidelinesPdfs communityGuidelinesPdfs;
+  final List<AppAccount> accounts;
+
+  const AppSettings({
+    required this.isPrivateApp,
+    required this.haveAccountSelector,
+    required this.communityGuidelinesPdfs,
+    required this.accounts,
+  });
+
+  factory AppSettings.defaultSettings() {
+    return AppSettings(
+      isPrivateApp: true,
+      haveAccountSelector: true,
+      communityGuidelinesPdfs: const CommunityGuidelinesPdfs(
+        servicePricesPdf: 'assets/service_prices.pdf',
+        ownerPdf: 'assets/owner.pdf',
+        firstTabLabel: 'Service Prices',
+        secondTabLabel: 'Owner Guide',
+      ),
+      accounts: const [
+        AppAccount(
+          accountKey: 'LASIRENA_PALM',
+          accountName: 'Palm Beach Sokhna',
+          accountLogo: 'assets/config/lasarina_palm.png',
+        ),
+        AppAccount(
+          accountKey: 'LASIRENA_NORTH',
+          accountName: 'North Cost',
+          accountLogo: 'assets/config/lasarina_north.png',
+        ),
+      ],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'isPrivateApp': isPrivateApp,
+      'haveAccountSelector': haveAccountSelector,
+      'communityGuidelinesPdfs': communityGuidelinesPdfs.toJson(),
+      'accounts': accounts.map((a) => a.toJson()).toList(),
+    };
+  }
+
+  factory AppSettings.fromJson(Map<String, dynamic> json) {
+    return AppSettings(
+      isPrivateApp: json['isPrivateApp'] as bool? ?? true,
+      haveAccountSelector: json['haveAccountSelector'] as bool? ?? true,
+      communityGuidelinesPdfs: CommunityGuidelinesPdfs.fromJson(
+        json['communityGuidelinesPdfs'] as Map<String, dynamic>? ?? const {},
+      ),
+      accounts: ((json['accounts'] as List?) ?? [])
+          .map((e) => AppAccount.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  AppSettings copyWith({
+    bool? isPrivateApp,
+    bool? haveAccountSelector,
+    CommunityGuidelinesPdfs? communityGuidelinesPdfs,
+    List<AppAccount>? accounts,
+  }) {
+    return AppSettings(
+      isPrivateApp: isPrivateApp ?? this.isPrivateApp,
+      haveAccountSelector: haveAccountSelector ?? this.haveAccountSelector,
+      communityGuidelinesPdfs:
+          communityGuidelinesPdfs ?? this.communityGuidelinesPdfs,
+      accounts: accounts ?? this.accounts,
+    );
+  }
+
+  @override
+  List<Object?> get props => [isPrivateApp, haveAccountSelector, communityGuidelinesPdfs, accounts];
+}
+
+class CommunityGuidelinesPdfs extends Equatable {
+  final String servicePricesPdf;
+  final String ownerPdf;
+  final String firstTabLabel;
+  final String secondTabLabel;
+
+  const CommunityGuidelinesPdfs({
+    required this.servicePricesPdf,
+    required this.ownerPdf,
+    required this.firstTabLabel,
+    required this.secondTabLabel,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'servicePricesPdf': servicePricesPdf,
+      'ownerPdf': ownerPdf,
+      'firstTabLabel': firstTabLabel,
+      'secondTabLabel': secondTabLabel,
+    };
+  }
+
+  factory CommunityGuidelinesPdfs.fromJson(Map<String, dynamic> json) {
+    return CommunityGuidelinesPdfs(
+      servicePricesPdf: json['servicePricesPdf'] as String? ?? 'assets/service_prices.pdf',
+      ownerPdf: json['ownerPdf'] as String? ?? 'assets/owner.pdf',
+      firstTabLabel: json['firstTabLabel'] as String? ?? 'Service Prices',
+      secondTabLabel: json['secondTabLabel'] as String? ?? 'Owner Guide',
+    );
+  }
+
+  CommunityGuidelinesPdfs copyWith({
+    String? servicePricesPdf,
+    String? ownerPdf,
+    String? firstTabLabel,
+    String? secondTabLabel,
+  }) {
+    return CommunityGuidelinesPdfs(
+      servicePricesPdf: servicePricesPdf ?? this.servicePricesPdf,
+      ownerPdf: ownerPdf ?? this.ownerPdf,
+      firstTabLabel: firstTabLabel ?? this.firstTabLabel,
+      secondTabLabel: secondTabLabel ?? this.secondTabLabel,
+    );
+  }
+
+  @override
+  List<Object?> get props => [servicePricesPdf, ownerPdf, firstTabLabel, secondTabLabel];
+}
+
+class AppAccount extends Equatable {
+  final String accountKey;
+  final String accountName;
+  final String accountLogo;
+
+  const AppAccount({
+    required this.accountKey,
+    required this.accountName,
+    required this.accountLogo,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'accountKey': accountKey,
+      'accountName': accountName,
+      'accountLogo': accountLogo,
+    };
+  }
+
+  factory AppAccount.fromJson(Map<String, dynamic> json) {
+    return AppAccount(
+      accountKey: json['accountKey'] as String,
+      accountName: json['accountName'] as String,
+      accountLogo: json['accountLogo'] as String,
+    );
+  }
+
+  AppAccount copyWith({
+    String? accountKey,
+    String? accountName,
+    String? accountLogo,
+  }) {
+    return AppAccount(
+      accountKey: accountKey ?? this.accountKey,
+      accountName: accountName ?? this.accountName,
+      accountLogo: accountLogo ?? this.accountLogo,
+    );
+  }
+
+  @override
+  List<Object?> get props => [accountKey, accountName, accountLogo];
 }

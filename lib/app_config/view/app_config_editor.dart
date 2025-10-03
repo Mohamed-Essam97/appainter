@@ -5,6 +5,7 @@ import 'package:appainter/widgets/widgets.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:typed_data';
 
 class AppConfigEditor extends StatelessWidget {
   const AppConfigEditor({super.key});
@@ -15,7 +16,7 @@ class AppConfigEditor extends StatelessWidget {
       items: [
         _AppInfoSection(),
         _AppLogoSection(),
-        _AppVariationsSection(),
+        _AppSettingsSection(),
       ],
     );
   }
@@ -574,5 +575,398 @@ class _VariationPreview extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _SwitchRow extends StatelessWidget {
+  const _SwitchRow({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final String label;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 120,
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Switch(
+          value: value,
+          onChanged: onChanged,
+        ),
+      ],
+    );
+  }
+}
+
+class _FilePickerRow extends StatelessWidget {
+  const _FilePickerRow({
+    required this.label,
+    required this.fileName,
+    required this.onChanged,
+    this.allowedExtensions = const ['pdf'],
+  });
+
+  final String label;
+  final String? fileName;
+  final ValueChanged<String?> onChanged;
+  final List<String> allowedExtensions;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 120,
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if ((fileName ?? '').isNotEmpty) ...[
+                Text(
+                  fileName!,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 8),
+              ],
+              Wrap(
+                spacing: 8,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _pickFile(context),
+                    child: Text(
+                      (fileName ?? '').isEmpty ? 'Select File' : 'Change File',
+                    ),
+                  ),
+                  if ((fileName ?? '').isNotEmpty)
+                    TextButton(
+                      onPressed: () => onChanged(''),
+                      child: const Text('Clear'),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _pickFile(BuildContext context) async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: allowedExtensions,
+        allowMultiple: false,
+      );
+
+      if (result != null && result.files.isNotEmpty) {
+        final file = result.files.first;
+        onChanged(file.name);
+      }
+    } catch (e) {
+      debugPrint('Error picking file: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to pick file: $e')),
+      );
+    }
+  }
+}
+
+class _AppSettingsSection extends ExpansionPanelItem {
+  const _AppSettingsSection({super.key});
+
+  @override
+  String get header => 'App Settings';
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        final settings = state.appConfig.settings;
+        return SideBySideList(
+          padding: kPaddingAll,
+          children: [
+            _SwitchRow(
+              label: 'Private App',
+              value: settings.isPrivateApp,
+              onChanged: (v) => context
+                  .read<HomeCubit>()
+                  .updateAppSettings(settings.copyWith(isPrivateApp: v)),
+            ),
+            _SwitchRow(
+              label: 'Have Account Selector',
+              value: settings.haveAccountSelector,
+              onChanged: (v) => context
+                  .read<HomeCubit>()
+                  .updateAppSettings(settings.copyWith(haveAccountSelector: v)),
+            ),
+            _FilePickerRow(
+              label: 'Service Prices PDF',
+              fileName: settings.communityGuidelinesPdfs.servicePricesPdf,
+              onChanged: (v) => context.read<HomeCubit>().updateAppSettings(
+                settings.copyWith(
+                  communityGuidelinesPdfs: settings.communityGuidelinesPdfs
+                      .copyWith(servicePricesPdf: v ?? ''),
+                ),
+              ),
+            ),
+            _FilePickerRow(
+              label: 'Owner Guide PDF',
+              fileName: settings.communityGuidelinesPdfs.ownerPdf,
+              onChanged: (v) => context.read<HomeCubit>().updateAppSettings(
+                settings.copyWith(
+                  communityGuidelinesPdfs: settings.communityGuidelinesPdfs
+                      .copyWith(ownerPdf: v ?? ''),
+                ),
+              ),
+            ),
+            _TextFieldRow(
+              label: 'First Tab Label',
+              value: settings.communityGuidelinesPdfs.firstTabLabel,
+              onChanged: (v) => context.read<HomeCubit>().updateAppSettings(
+                    settings.copyWith(
+                      communityGuidelinesPdfs: settings.communityGuidelinesPdfs
+                          .copyWith(firstTabLabel: v),
+                    ),
+                  ),
+            ),
+            _TextFieldRow(
+              label: 'Second Tab Label',
+              value: settings.communityGuidelinesPdfs.secondTabLabel,
+              onChanged: (v) => context.read<HomeCubit>().updateAppSettings(
+                    settings.copyWith(
+                      communityGuidelinesPdfs: settings.communityGuidelinesPdfs
+                          .copyWith(secondTabLabel: v),
+                    ),
+                  ),
+            ),
+            const Divider(),
+            const SizedBox(height: 8),
+            Text(
+              'Accounts',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            _AccountsEditor(accounts: settings.accounts),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _AccountsEditor extends StatelessWidget {
+  const _AccountsEditor({required this.accounts});
+
+  final List<AppAccount> accounts;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: ElevatedButton.icon(
+            icon: const Icon(Icons.add),
+            label: const Text('Add Account'),
+            onPressed: () {
+              final cubit = context.read<HomeCubit>();
+              final current = List<AppAccount>.from(
+                  cubit.state.appConfig.settings.accounts);
+              current.add(const AppAccount(
+                accountKey: '',
+                accountName: '',
+                accountLogo: '',
+              ));
+              cubit.updateAppSettings(
+                cubit.state.appConfig.settings.copyWith(accounts: current),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 12),
+        for (int i = 0; i < accounts.length; i++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: _AccountRow(index: i, account: accounts[i]),
+          ),
+      ],
+    );
+  }
+}
+
+class _AccountRow extends StatefulWidget {
+  const _AccountRow({required this.index, required this.account});
+
+  final int index;
+  final AppAccount account;
+
+  @override
+  State<_AccountRow> createState() => _AccountRowState();
+}
+
+class _AccountRowState extends State<_AccountRow> {
+  Uint8List? _logoPreviewBytes;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        final account = widget.account;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _TextFieldRow(
+              label: 'Account Key',
+              value: account.accountKey,
+              onChanged: (v) {
+                final updated = account.copyWith(accountKey: v);
+                final updatedList = List<AppAccount>.from(
+                    state.appConfig.settings.accounts);
+                updatedList[widget.index] = updated;
+                context.read<HomeCubit>().updateAppSettings(
+                      state.appConfig.settings.copyWith(accounts: updatedList),
+                    );
+              },
+            ),
+            _TextFieldRow(
+              label: 'Account Name',
+              value: account.accountName,
+              onChanged: (v) {
+                final updated = account.copyWith(accountName: v);
+                final updatedList = List<AppAccount>.from(
+                    state.appConfig.settings.accounts);
+                updatedList[widget.index] = updated;
+                context.read<HomeCubit>().updateAppSettings(
+                      state.appConfig.settings.copyWith(accounts: updatedList),
+                    );
+              },
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 120,
+                  child: Text(
+                    'Account Logo',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (_logoPreviewBytes != null) ...[
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.memory(
+                              _logoPreviewBytes!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                      ] else if ((account.accountLogo).isNotEmpty) ...[
+                        Text(
+                          account.accountLogo,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                      Wrap(
+                        spacing: 8,
+                        children: [
+                          ElevatedButton(
+                            onPressed: _pickLogoImage,
+                            child: Text(
+                              (account.accountLogo).isEmpty
+                                  ? 'Select Image'
+                                  : 'Change Image',
+                            ),
+                          ),
+                          if ((account.accountLogo).isNotEmpty)
+                            TextButton(
+                              onPressed: () {
+                                setState(() => _logoPreviewBytes = null);
+                                final updated = account.copyWith(accountLogo: '');
+                                final updatedList = List<AppAccount>.from(
+                                    state.appConfig.settings.accounts);
+                                updatedList[widget.index] = updated;
+                                context.read<HomeCubit>().updateAppSettings(
+                                      state.appConfig.settings
+                                          .copyWith(accounts: updatedList),
+                                    );
+                              },
+                              child: const Text('Clear'),
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _pickLogoImage() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+
+      if (result != null && result.files.isNotEmpty) {
+        final file = result.files.first;
+        if (file.bytes != null) {
+          setState(() => _logoPreviewBytes = file.bytes);
+        }
+        final cubit = context.read<HomeCubit>();
+        final state = cubit.state;
+        final account = widget.account;
+        final updated = account.copyWith(accountLogo: file.name);
+        final updatedList = List<AppAccount>.from(
+            state.appConfig.settings.accounts);
+        updatedList[widget.index] = updated;
+        cubit.updateAppSettings(
+          state.appConfig.settings.copyWith(accounts: updatedList),
+        );
+      }
+    } catch (e) {
+      debugPrint('Error picking image: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to pick image: $e')),
+      );
+    }
   }
 }

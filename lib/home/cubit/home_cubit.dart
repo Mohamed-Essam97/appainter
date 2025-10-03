@@ -94,6 +94,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: name,
       version: state.appConfig.version,
       packageName: state.appConfig.packageName,
+      settings: state.appConfig.settings,
       variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
@@ -106,6 +107,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: version,
       packageName: state.appConfig.packageName,
+      settings: state.appConfig.settings,
       variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
@@ -118,6 +120,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: state.appConfig.version,
       packageName: packageName,
+      settings: state.appConfig.settings,
       variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
@@ -130,6 +133,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: state.appConfig.version,
       packageName: state.appConfig.packageName,
+      settings: state.appConfig.settings,
       variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
@@ -142,6 +146,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: state.appConfig.version,
       packageName: state.appConfig.packageName,
+      settings: state.appConfig.settings,
       variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
@@ -154,7 +159,21 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: state.appConfig.version,
       packageName: state.appConfig.packageName,
+      settings: state.appConfig.settings,
       variations: variations,
+    );
+    emit(state.copyWith(appConfig: updatedConfig));
+  }
+
+  void updateAppSettings(AppSettings settings) {
+    final updatedConfig = AppConfig(
+      logo: state.appConfig.logo,
+      icon: state.appConfig.icon,
+      name: state.appConfig.name,
+      version: state.appConfig.version,
+      packageName: state.appConfig.packageName,
+      settings: settings,
+      variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
   }
