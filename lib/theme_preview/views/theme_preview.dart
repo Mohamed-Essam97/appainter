@@ -26,6 +26,7 @@ class ThemePreview extends StatelessWidget {
     InputsPage(),
     SelectionsPage(),
     TextPage(),
+    VariationsPage(),
   ];
 
   const ThemePreview({super.key});

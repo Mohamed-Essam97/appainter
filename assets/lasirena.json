@@ -1,0 +1,135 @@
+{
+  "feeds": {
+    "cardType": "feedCard_v2"
+  },
+  "facility": {
+    "facilityRequestCardType": "facilityRequestCard_v2",
+    "facilityRequestDetailsType": "facilityRequestDetails_v2",
+    "facilityServiceCardType": "facilityServiceCard_v2",
+    "facilityCategoryCardType": "facilityCategoryCard_v2",
+    "facilityInfoRowType": "facilityInfoRow_v2"
+  },
+  "identity_badge": {
+    "accessKeySelectorType": "accessKeySelector_v2",
+    "identityBadgeQRCodeType": "identityBadgeQRCode_v2"
+  },
+  "gatePass": {
+    "gatePassCardType": "gatePassCard_v2"
+  },
+  "invitations": {
+    "invitationCardType": "invitationCard_v2"
+  },
+  "dues": {
+    "duesCardWidgetType": "duesCardWidget_v2",
+    "duesDetailsType": "duesDetails_v2"
+  },
+  "communityRequests": {
+    "communityCategoryGridItemType": "communityCategoryGridItem_v2",
+    "communityRequestCardType": "communityRequestCard_v2",
+    "communityRequestDetailsType": "communityRequestDetails_v2"
+  },
+  "profile": {
+    "profileHeaderType": "profileHeader_v2",
+    "profileItemType": "profileItem_v2"
+  },
+  "faqs": {
+    "faqsType": "faqs_v2"
+  },
+  "language": {
+    "languageSelectionType": "languageSelection_v2"
+  },
+  "contactUs": {
+    "contactUsScreenType": "contactUsScreen_v2"
+  },
+  "communityGuidelines": {
+    "communityGuidelinesType": "communityGuidelines_v2"
+  },
+  "filledTabType": "filledTab_v2",
+  "borderTabType": "borderedTab_v2",
+  "propertySelectorType": "propertySelector_v2",
+  "screens": [
+    {
+      "name": "welcome",
+      "hasAppBar": false,
+      "background": "assets/app/lasirena_splash.png",
+      "elements": [
+        {
+          "type": "Gap",
+          "size": "space10"
+        },
+        {
+          "type": "Gap",
+          "size": "space10"
+        },
+        {
+          "type": "SmallLogo"
+        },
+        {
+          "type": "Gap",
+          "size": "space4"
+        },
+        {
+          "type": "Text",
+          "text": "welcome.welcomeTitle",
+          "style": "titleLarge",
+          "align": "center",
+          "isLocalized": true,
+          "args": ["{{config.name}}"]
+        },
+        {
+          "type": "Gap",
+          "size": "space4"
+        },
+        {
+          "type": "Text",
+          "text": "welcome.welcomeDescription",
+          "style": "bodyMedium",
+          "align": "center",
+          "isLocalized": true
+        },
+        {
+          "type": "Gap",
+          "size": "space4"
+        },
+        {
+          "widget": "AppAccountSelector",
+          "type": "AppAccountSelector",
+          "accounts": [
+            {
+              "accountKey": "JAZI",
+              "accountName": "Palm Beach Sokhna",
+              "accountLogo": "assets/images/palm-logo.jpg"
+            },
+            {
+              "accountKey": "TEST1",
+              "accountName": "North Cost",
+              "accountLogo": "assets/images/north-cost.png"
+            }
+          ]
+        },
+        {
+          "type": "Gap",
+          "size": "space8"
+        },
+        {
+          "type": "OutlinedButton",
+          "text": "welcome.loginButton",
+          "action": "navigate",
+          "route": "/login",
+          "isLocalized": true
+        },
+        {
+          "type": "Gap",
+          "size": "space4"
+        },
+        {
+          "type": "ElevatedButton",
+          "text": "welcome.signupButton",
+          "action": "navigate",
+          "route": "/signup",
+          "isLocalized": true
+        }
+      ]
+    }
+  ]
+}

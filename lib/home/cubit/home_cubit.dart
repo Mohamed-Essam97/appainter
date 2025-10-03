@@ -94,6 +94,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: name,
       version: state.appConfig.version,
       packageName: state.appConfig.packageName,
+      variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
   }
@@ -105,6 +106,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: version,
       packageName: state.appConfig.packageName,
+      variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
   }
@@ -116,6 +118,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: state.appConfig.version,
       packageName: packageName,
+      variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
   }
@@ -127,6 +130,7 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: state.appConfig.version,
       packageName: state.appConfig.packageName,
+      variations: state.appConfig.variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
   }
@@ -138,6 +142,19 @@ class HomeCubit extends Cubit<HomeState> {
       name: state.appConfig.name,
       version: state.appConfig.version,
       packageName: state.appConfig.packageName,
+      variations: state.appConfig.variations,
+    );
+    emit(state.copyWith(appConfig: updatedConfig));
+  }
+
+  void updateAppVariations(AppVariations variations) {
+    final updatedConfig = AppConfig(
+      logo: state.appConfig.logo,
+      icon: state.appConfig.icon,
+      name: state.appConfig.name,
+      version: state.appConfig.version,
+      packageName: state.appConfig.packageName,
+      variations: variations,
     );
     emit(state.copyWith(appConfig: updatedConfig));
   }
