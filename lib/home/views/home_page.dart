@@ -58,7 +58,7 @@ class HomePageState extends State<HomePage> {
             size: PaddingSize.medium,
           ),
           Text(
-            'Iometer Community Builder',
+            'ioMeter Community Builder',
             style: TextStyle(color: color),
           ),
         ],
