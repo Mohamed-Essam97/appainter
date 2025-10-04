@@ -1,6 +1,264 @@
 import 'package:equatable/equatable.dart';
 import 'dart:typed_data';
 
+class DrawerItem extends Equatable {
+  final String id;
+  final String title;
+  final String icon;
+  final String? screen;
+  final String? action;
+  final bool isEnabled;
+
+  const DrawerItem({
+    required this.id,
+    required this.title,
+    required this.icon,
+    this.screen,
+    this.action,
+    this.isEnabled = true,
+  });
+
+  Map<String, dynamic> toJson() {
+    final json = <String, dynamic>{
+      'id': id,
+      'title': title,
+      'icon': icon,
+      'isEnabled': isEnabled,
+    };
+
+    if (screen != null) json['screen'] = screen;
+    if (action != null) json['action'] = action;
+
+    return json;
+  }
+
+  factory DrawerItem.fromJson(Map<String, dynamic> json) {
+    return DrawerItem(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      icon: json['icon'] as String,
+      screen: json['screen'] as String?,
+      action: json['action'] as String?,
+      isEnabled: json['isEnabled'] as bool? ?? true,
+    );
+  }
+
+  DrawerItem copyWith({
+    String? id,
+    String? title,
+    String? icon,
+    String? screen,
+    String? action,
+    bool? isEnabled,
+  }) {
+    return DrawerItem(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      icon: icon ?? this.icon,
+      screen: screen ?? this.screen,
+      action: action ?? this.action,
+      isEnabled: isEnabled ?? this.isEnabled,
+    );
+  }
+
+  @override
+  List<Object?> get props => [id, title, icon, screen, action, isEnabled];
+}
+
+class DrawerHeader extends Equatable {
+  final String logo;
+  final String title;
+
+  const DrawerHeader({
+    required this.logo,
+    required this.title,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'logo': logo,
+      'title': title,
+    };
+  }
+
+  factory DrawerHeader.fromJson(Map<String, dynamic> json) {
+    return DrawerHeader(
+      logo: json['logo'] as String,
+      title: json['title'] as String,
+    );
+  }
+
+  DrawerHeader copyWith({
+    String? logo,
+    String? title,
+  }) {
+    return DrawerHeader(
+      logo: logo ?? this.logo,
+      title: title ?? this.title,
+    );
+  }
+
+  @override
+  List<Object?> get props => [logo, title];
+}
+
+class DrawerConfig extends Equatable {
+  final String drawerType;
+  final DrawerHeader header;
+  final List<DrawerItem> items;
+
+  const DrawerConfig({
+    required this.drawerType,
+    required this.header,
+    required this.items,
+  });
+
+  factory DrawerConfig.defaultConfig() {
+    return DrawerConfig(
+      drawerType: 'drawer_v2',
+      header: const DrawerHeader(
+        logo: 'assets/app/lasirena_logo_light.png',
+        title: 'Menu',
+      ),
+      items: const [
+        DrawerItem(
+          id: 'drawer2',
+          title: 'drawer.gatePass',
+          icon: 'assets/svg/gate_pass.svg',
+          screen: 'gatePass',
+        ),
+        DrawerItem(
+          id: 'drawer3',
+          title: 'drawer.invitations',
+          icon: 'assets/svg/invitations.svg',
+          screen: 'invitations',
+        ),
+        DrawerItem(
+          id: 'drawer4',
+          title: 'drawer.utilities',
+          icon: 'assets/svg/utilities.svg',
+          screen: 'utilities',
+        ),
+        DrawerItem(
+          id: 'drawer5',
+          title: 'drawer.dues',
+          icon: 'assets/svg/dues.svg',
+          screen: 'dues',
+        ),
+        DrawerItem(
+          id: 'drawer6',
+          title: 'drawer.community_payments',
+          icon: 'assets/svg/communityPayments.svg',
+          screen: 'communityPayments',
+        ),
+        DrawerItem(
+          id: 'drawer7',
+          title: 'drawer.requests',
+          icon: 'assets/svg/requests.svg',
+          screen: 'communityRequests',
+        ),
+        DrawerItem(
+          id: 'drawer8',
+          title: 'drawer.documents',
+          icon: 'assets/svg/documents.svg',
+          screen: 'documents',
+        ),
+        DrawerItem(
+          id: 'drawer9',
+          title: 'drawer.community_guidelines',
+          icon: 'assets/svg/guidelines.svg',
+          screen: 'communityGuidelines',
+        ),
+        DrawerItem(
+          id: 'drawer10',
+          title: 'drawer.contact_us',
+          icon: 'assets/svg/contact.svg',
+          screen: 'contactUs',
+        ),
+        DrawerItem(
+          id: 'drawer11',
+          title: 'drawer.sendCommunityRequest',
+          icon: 'assets/svg/contact.svg',
+          screen: 'sendCommunityRequest',
+        ),
+        DrawerItem(
+          id: 'drawer12',
+          title: 'drawer.biometric',
+          icon: 'assets/svg/contact.svg',
+          screen: 'biometric',
+        ),
+        DrawerItem(
+          id: 'drawer13',
+          title: 'drawer.manage_saved_users',
+          icon: 'assets/svg/settings.svg',
+          screen: 'manageSavedUsers',
+        ),
+        DrawerItem(
+          id: 'drawer14',
+          title: 'drawer.logout',
+          icon: 'assets/svg/logout.svg',
+          action: 'logout',
+        ),
+      ],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'drawerType': drawerType,
+      'header': header.toJson(),
+      'items': items.map((item) => item.toJson()).toList(),
+    };
+  }
+
+  factory DrawerConfig.fromJson(Map<String, dynamic> json) {
+    return DrawerConfig(
+      drawerType: json['drawerType'] as String? ?? 'drawer_v2',
+      header: DrawerHeader.fromJson(json['header'] as Map<String, dynamic>),
+      items: (json['items'] as List<dynamic>)
+          .map((item) => DrawerItem.fromJson(item as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  DrawerConfig copyWith({
+    String? drawerType,
+    DrawerHeader? header,
+    List<DrawerItem>? items,
+  }) {
+    return DrawerConfig(
+      drawerType: drawerType ?? this.drawerType,
+      header: header ?? this.header,
+      items: items ?? this.items,
+    );
+  }
+
+  DrawerConfig addItem(DrawerItem item) {
+    return copyWith(items: [...items, item]);
+  }
+
+  DrawerConfig removeItem(String itemId) {
+    return copyWith(items: items.where((item) => item.id != itemId).toList());
+  }
+
+  DrawerConfig updateItem(String itemId, DrawerItem updatedItem) {
+    return copyWith(
+      items: items.map((item) => item.id == itemId ? updatedItem : item).toList(),
+    );
+  }
+
+  DrawerConfig toggleItemEnabled(String itemId) {
+    return copyWith(
+      items: items.map((item) =>
+        item.id == itemId ? item.copyWith(isEnabled: !item.isEnabled) : item
+      ).toList(),
+    );
+  }
+
+  @override
+  List<Object?> get props => [drawerType, header, items];
+}
+
 class AppVariations extends Equatable {
   final String feedsCardType;
   final String facilityRequestCardType;
@@ -279,6 +537,7 @@ class AppConfig extends Equatable {
   final String packageName;
   final AppSettings settings;
   final AppVariations variations;
+  final DrawerConfig drawer;
 
   const AppConfig({
     required this.logo,
@@ -288,6 +547,7 @@ class AppConfig extends Equatable {
     required this.packageName,
     required this.settings,
     required this.variations,
+    required this.drawer,
   });
 
   factory AppConfig.defaultConfig() {
@@ -304,6 +564,7 @@ class AppConfig extends Equatable {
       packageName: 'com.lasirena.app',
       settings: AppSettings.defaultSettings(),
       variations: AppVariations.defaultVariations(),
+      drawer: DrawerConfig.defaultConfig(),
     );
   }
 
@@ -316,6 +577,7 @@ class AppConfig extends Equatable {
       'packageName': packageName,
       'settings': settings.toJson(),
       'variations': variations.toJson(),
+      'drawer': drawer.toJson(),
     };
   }
 
@@ -328,11 +590,34 @@ class AppConfig extends Equatable {
       packageName: json['packageName'] as String,
       settings: AppSettings.fromJson(json['settings'] as Map<String, dynamic>? ?? const {}),
       variations: AppVariations.fromJson(json['variations'] as Map<String, dynamic>),
+      drawer: DrawerConfig.fromJson(json['drawer'] as Map<String, dynamic>? ?? const {}),
     );
   }
 
   @override
-  List<Object?> get props => [logo, icon, name, version, packageName, settings, variations];
+  List<Object?> get props => [logo, icon, name, version, packageName, settings, variations, drawer];
+
+  AppConfig copyWith({
+    AppLogo? logo,
+    ImageAsset? icon,
+    String? name,
+    String? version,
+    String? packageName,
+    AppSettings? settings,
+    AppVariations? variations,
+    DrawerConfig? drawer,
+  }) {
+    return AppConfig(
+      logo: logo ?? this.logo,
+      icon: icon ?? this.icon,
+      name: name ?? this.name,
+      version: version ?? this.version,
+      packageName: packageName ?? this.packageName,
+      settings: settings ?? this.settings,
+      variations: variations ?? this.variations,
+      drawer: drawer ?? this.drawer,
+    );
+  }
 }
 
 class AppLogo extends Equatable {

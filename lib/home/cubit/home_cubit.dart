@@ -87,94 +87,43 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(appConfig: newConfig));
   }
 
+  void updateDrawerConfig(DrawerConfig drawerConfig) {
+    final updatedAppConfig = state.appConfig.copyWith(drawer: drawerConfig);
+    emit(state.copyWith(appConfig: updatedAppConfig));
+  }
+
   void updateAppName(String name) {
-    final updatedConfig = AppConfig(
-      logo: state.appConfig.logo,
-      icon: state.appConfig.icon,
-      name: name,
-      version: state.appConfig.version,
-      packageName: state.appConfig.packageName,
-      settings: state.appConfig.settings,
-      variations: state.appConfig.variations,
-    );
+    final updatedConfig = state.appConfig.copyWith(name: name);
     emit(state.copyWith(appConfig: updatedConfig));
   }
 
   void updateAppVersion(String version) {
-    final updatedConfig = AppConfig(
-      logo: state.appConfig.logo,
-      icon: state.appConfig.icon,
-      name: state.appConfig.name,
-      version: version,
-      packageName: state.appConfig.packageName,
-      settings: state.appConfig.settings,
-      variations: state.appConfig.variations,
-    );
+    final updatedConfig = state.appConfig.copyWith(version: version);
     emit(state.copyWith(appConfig: updatedConfig));
   }
 
   void updatePackageName(String packageName) {
-    final updatedConfig = AppConfig(
-      logo: state.appConfig.logo,
-      icon: state.appConfig.icon,
-      name: state.appConfig.name,
-      version: state.appConfig.version,
-      packageName: packageName,
-      settings: state.appConfig.settings,
-      variations: state.appConfig.variations,
-    );
+    final updatedConfig = state.appConfig.copyWith(packageName: packageName);
     emit(state.copyWith(appConfig: updatedConfig));
   }
 
   void updateAppIcon(ImageAsset icon) {
-    final updatedConfig = AppConfig(
-      logo: state.appConfig.logo,
-      icon: icon,
-      name: state.appConfig.name,
-      version: state.appConfig.version,
-      packageName: state.appConfig.packageName,
-      settings: state.appConfig.settings,
-      variations: state.appConfig.variations,
-    );
+    final updatedConfig = state.appConfig.copyWith(icon: icon);
     emit(state.copyWith(appConfig: updatedConfig));
   }
 
   void updateAppLogo(AppLogo logo) {
-    final updatedConfig = AppConfig(
-      logo: logo,
-      icon: state.appConfig.icon,
-      name: state.appConfig.name,
-      version: state.appConfig.version,
-      packageName: state.appConfig.packageName,
-      settings: state.appConfig.settings,
-      variations: state.appConfig.variations,
-    );
+    final updatedConfig = state.appConfig.copyWith(logo: logo);
     emit(state.copyWith(appConfig: updatedConfig));
   }
 
   void updateAppVariations(AppVariations variations) {
-    final updatedConfig = AppConfig(
-      logo: state.appConfig.logo,
-      icon: state.appConfig.icon,
-      name: state.appConfig.name,
-      version: state.appConfig.version,
-      packageName: state.appConfig.packageName,
-      settings: state.appConfig.settings,
-      variations: variations,
-    );
+    final updatedConfig = state.appConfig.copyWith(variations: variations);
     emit(state.copyWith(appConfig: updatedConfig));
   }
 
   void updateAppSettings(AppSettings settings) {
-    final updatedConfig = AppConfig(
-      logo: state.appConfig.logo,
-      icon: state.appConfig.icon,
-      name: state.appConfig.name,
-      version: state.appConfig.version,
-      packageName: state.appConfig.packageName,
-      settings: settings,
-      variations: state.appConfig.variations,
-    );
+    final updatedConfig = state.appConfig.copyWith(settings: settings);
     emit(state.copyWith(appConfig: updatedConfig));
   }
 }
