@@ -14,9 +14,12 @@ class PresetSize {
   });
 
   static const List<PresetSize> defaultPresets = [
-    PresetSize(name: 'Phone', width: 375, height: 667, icon: Icons.phone_android),
-    PresetSize(name: 'Tablet', width: 768, height: 1024, icon: Icons.tablet_mac),
-    PresetSize(name: 'Desktop', width: 1200, height: 800, icon: Icons.desktop_mac),
+    PresetSize(
+        name: 'Phone', width: 375, height: 667, icon: Icons.phone_android),
+    PresetSize(
+        name: 'Tablet', width: 768, height: 1024, icon: Icons.tablet_mac),
+    PresetSize(
+        name: 'Desktop', width: 1200, height: 800, icon: Icons.desktop_mac),
   ];
 }
 
@@ -39,7 +42,8 @@ class ScalableDraggablePreview extends StatefulWidget {
   });
 
   @override
-  State<ScalableDraggablePreview> createState() => _ScalableDraggablePreviewState();
+  State<ScalableDraggablePreview> createState() =>
+      _ScalableDraggablePreviewState();
 }
 
 class _ScalableDraggablePreviewState extends State<ScalableDraggablePreview> {
@@ -75,7 +79,7 @@ class _ScalableDraggablePreviewState extends State<ScalableDraggablePreview> {
             setState(() {
               _x += details.delta.dx;
               _y += details.delta.dy;
-              
+
               // Keep within screen bounds
               _x = _x.clamp(0, MediaQuery.of(context).size.width - _width);
               _y = _y.clamp(0, MediaQuery.of(context).size.height - _height);
@@ -140,7 +144,8 @@ class _ScalableDraggablePreviewState extends State<ScalableDraggablePreview> {
                           children: [
                             Icon(
                               Icons.drag_indicator,
-                              color: Theme.of(context).brightness == Brightness.dark
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
                                   ? Colors.grey[400]
                                   : Colors.grey[600],
                               size: 20,
@@ -148,9 +153,12 @@ class _ScalableDraggablePreviewState extends State<ScalableDraggablePreview> {
                             const SizedBox(width: 8),
                             Text(
                               'Device Preview',
-                              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                           ],
                         ),
@@ -164,52 +172,64 @@ class _ScalableDraggablePreviewState extends State<ScalableDraggablePreview> {
                           icon: Icon(
                             Icons.aspect_ratio,
                             size: 16,
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? Colors.grey[400]
-                                : Colors.grey[600],
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey[400]
+                                    : Colors.grey[600],
                           ),
-                          itemBuilder: (context) => (widget.presetSizes ?? PresetSize.defaultPresets)
-                              .map((preset) => PopupMenuItem<PresetSize>(
-                                    value: preset,
-                                    child: Row(
-                                      children: [
-                                        Icon(preset.icon, size: 16),
-                                        const SizedBox(width: 8),
-                                        Text(preset.name),
-                                        const Spacer(),
-                                        Text(
-                                          '${preset.width.toInt()}×${preset.height.toInt()}',
-                                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                            fontFamily: 'monospace',
-                                            fontSize: 10,
+                          itemBuilder: (context) =>
+                              (widget.presetSizes ?? PresetSize.defaultPresets)
+                                  .map(
+                                    (preset) => PopupMenuItem<PresetSize>(
+                                      value: preset,
+                                      child: Row(
+                                        children: [
+                                          Icon(preset.icon, size: 16),
+                                          const SizedBox(width: 8),
+                                          Text(preset.name),
+                                          const Spacer(),
+                                          Text(
+                                            '${preset.width.toInt()}×${preset.height.toInt()}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                  fontFamily: 'monospace',
+                                                  fontSize: 10,
+                                                ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ))
-                              .toList(),
+                                  )
+                                  .toList(),
                           onSelected: (preset) {
                             setState(() {
-                              _width = preset.width.clamp(widget.minSize.width, widget.maxSize.width);
-                              _height = preset.height.clamp(widget.minSize.height, widget.maxSize.height);
+                              _width = preset.width.clamp(
+                                  widget.minSize.width, widget.maxSize.width);
+                              _height = preset.height.clamp(
+                                  widget.minSize.height, widget.maxSize.height);
                             });
                           },
                         ),
                         const SizedBox(width: 4),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? Colors.grey[700]
-                                : Colors.grey[200],
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey[700]
+                                    : Colors.grey[200],
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
                             '${_width.toInt()}×${_height.toInt()}',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontFamily: 'monospace',
-                              fontSize: 10,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      fontFamily: 'monospace',
+                                      fontSize: 10,
+                                    ),
                           ),
                         ),
                       ],
@@ -269,8 +289,10 @@ class _ScalableDraggablePreviewState extends State<ScalableDraggablePreview> {
           },
           onPanUpdate: (details) {
             setState(() {
-              _width = (_width + details.delta.dx).clamp(widget.minSize.width, widget.maxSize.width);
-              _height = (_height + details.delta.dy).clamp(widget.minSize.height, widget.maxSize.height);
+              _width = (_width + details.delta.dx)
+                  .clamp(widget.minSize.width, widget.maxSize.width);
+              _height = (_height + details.delta.dy)
+                  .clamp(widget.minSize.height, widget.maxSize.height);
             });
           },
           onPanEnd: (details) {
@@ -305,7 +327,8 @@ class _ScalableDraggablePreviewState extends State<ScalableDraggablePreview> {
           },
           onPanUpdate: (details) {
             setState(() {
-              _height = (_height + details.delta.dy).clamp(widget.minSize.height, widget.maxSize.height);
+              _height = (_height + details.delta.dy)
+                  .clamp(widget.minSize.height, widget.maxSize.height);
             });
           },
           onPanEnd: (details) {
@@ -340,7 +363,8 @@ class _ScalableDraggablePreviewState extends State<ScalableDraggablePreview> {
           },
           onPanUpdate: (details) {
             setState(() {
-              _width = (_width + details.delta.dx).clamp(widget.minSize.width, widget.maxSize.width);
+              _width = (_width + details.delta.dx)
+                  .clamp(widget.minSize.width, widget.maxSize.width);
             });
           },
           onPanEnd: (details) {
