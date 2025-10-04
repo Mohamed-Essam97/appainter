@@ -4,8 +4,8 @@ import 'package:appainter/basic_theme/basic_theme.dart';
 import 'package:appainter/common/common.dart';
 import 'package:appainter/home/home.dart';
 import 'package:appainter/theme_preview/theme_preview.dart';
-import 'package:appainter/widgets/widgets.dart';
 import 'package:appainter/variations/view/variations_editor.dart';
+import 'package:appainter/widgets/widgets.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -141,10 +141,12 @@ class _EditorPreview extends StatelessWidget {
     return Row(
       children: [
         Expanded(
+          flex: 3,
           child: _EditorsContainer(),
         ),
         const HorizontalPadding(),
         Expanded(
+          flex: 1,
           child: Card(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(4),

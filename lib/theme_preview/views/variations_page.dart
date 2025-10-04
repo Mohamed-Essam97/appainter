@@ -1,4 +1,3 @@
-import 'package:appainter/app_config/app_config.dart';
 import 'package:appainter/common/consts.dart';
 import 'package:appainter/home/home.dart';
 import 'package:appainter/theme_preview/views/preview_body.dart';
@@ -20,7 +19,7 @@ class VariationsPage extends PreviewBody {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         final variations = state.appConfig.variations;
-        
+
         return MyListView(
           padding: kPaddingAll,
           children: [
@@ -30,35 +29,40 @@ class VariationsPage extends PreviewBody {
               variationType: variations.feedsCardType,
               child: _FeedsCardPreview(type: variations.feedsCardType),
             ),
-            
+
             // Facility Request Card Variation
             _VariationSection(
               title: 'Facility Request Card',
               variationType: variations.facilityRequestCardType,
-              child: _FacilityRequestCardPreview(type: variations.facilityRequestCardType),
+              child: _FacilityRequestCardPreview(
+                type: variations.facilityRequestCardType,
+              ),
             ),
-            
+
             // Gate Pass Card Variation
             _VariationSection(
               title: 'Gate Pass Card',
               variationType: variations.gatePassCardType,
               child: _GatePassCardPreview(type: variations.gatePassCardType),
             ),
-            
+
             // Invitation Card Variation
             _VariationSection(
               title: 'Invitation Card',
               variationType: variations.invitationCardType,
-              child: _InvitationCardPreview(type: variations.invitationCardType),
+              child:
+                  _InvitationCardPreview(type: variations.invitationCardType),
             ),
-            
+
             // Community Request Card Variation
             _VariationSection(
               title: 'Community Request Card',
               variationType: variations.communityRequestCardType,
-              child: _CommunityRequestCardPreview(type: variations.communityRequestCardType),
+              child: _CommunityRequestCardPreview(
+                type: variations.communityRequestCardType,
+              ),
             ),
-            
+
             // Dues Card Variation
             _VariationSection(
               title: 'Dues Card',
@@ -95,8 +99,8 @@ class _VariationSection extends StatelessWidget {
               Text(
                 title,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               const SizedBox(width: 8),
               Container(
@@ -111,9 +115,9 @@ class _VariationSection extends StatelessWidget {
                 child: Text(
                   variationType.split('_').last.toUpperCase(),
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.w600,
-                  ),
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
               ),
             ],
@@ -128,7 +132,7 @@ class _VariationSection extends StatelessWidget {
 
 class _FeedsCardPreview extends StatelessWidget {
   const _FeedsCardPreview({required this.type});
-  
+
   final String type;
 
   @override
@@ -152,9 +156,11 @@ class _FeedsCardPreview extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.image_not_supported, 
-                       color: Colors.grey[400], 
-                       size: 40),
+                  Icon(
+                    Icons.image_not_supported,
+                    color: Colors.grey[400],
+                    size: 40,
+                  ),
                   const SizedBox(height: 8),
                   Text(
                     'Preview not available',
@@ -182,7 +188,7 @@ class _FeedsCardPreview extends StatelessWidget {
 
 class _FacilityRequestCardPreview extends StatelessWidget {
   const _FacilityRequestCardPreview({required this.type});
-  
+
   final String type;
 
   @override
@@ -206,9 +212,11 @@ class _FacilityRequestCardPreview extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.image_not_supported, 
-                       color: Colors.grey[400], 
-                       size: 40),
+                  Icon(
+                    Icons.image_not_supported,
+                    color: Colors.grey[400],
+                    size: 40,
+                  ),
                   const SizedBox(height: 8),
                   Text(
                     'Preview not available',
@@ -236,7 +244,7 @@ class _FacilityRequestCardPreview extends StatelessWidget {
 
 class _GatePassCardPreview extends StatelessWidget {
   const _GatePassCardPreview({required this.type});
-  
+
   final String type;
 
   @override
@@ -260,9 +268,11 @@ class _GatePassCardPreview extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.image_not_supported, 
-                       color: Colors.grey[400], 
-                       size: 40),
+                  Icon(
+                    Icons.image_not_supported,
+                    color: Colors.grey[400],
+                    size: 40,
+                  ),
                   const SizedBox(height: 8),
                   Text(
                     'Preview not available',
@@ -290,7 +300,7 @@ class _GatePassCardPreview extends StatelessWidget {
 
 class _InvitationCardPreview extends StatelessWidget {
   const _InvitationCardPreview({required this.type});
-  
+
   final String type;
 
   @override
@@ -314,9 +324,11 @@ class _InvitationCardPreview extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.image_not_supported, 
-                       color: Colors.grey[400], 
-                       size: 40),
+                  Icon(
+                    Icons.image_not_supported,
+                    color: Colors.grey[400],
+                    size: 40,
+                  ),
                   const SizedBox(height: 8),
                   Text(
                     'Preview not available',
@@ -344,7 +356,7 @@ class _InvitationCardPreview extends StatelessWidget {
 
 class _CommunityRequestCardPreview extends StatelessWidget {
   const _CommunityRequestCardPreview({required this.type});
-  
+
   final String type;
 
   @override
@@ -368,9 +380,11 @@ class _CommunityRequestCardPreview extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.image_not_supported, 
-                       color: Colors.grey[400], 
-                       size: 40),
+                  Icon(
+                    Icons.image_not_supported,
+                    color: Colors.grey[400],
+                    size: 40,
+                  ),
                   const SizedBox(height: 8),
                   Text(
                     'Preview not available',
@@ -398,7 +412,7 @@ class _CommunityRequestCardPreview extends StatelessWidget {
 
 class _DuesCardPreview extends StatelessWidget {
   const _DuesCardPreview({required this.type});
-  
+
   final String type;
 
   @override
@@ -422,9 +436,11 @@ class _DuesCardPreview extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.image_not_supported, 
-                       color: Colors.grey[400], 
-                       size: 40),
+                  Icon(
+                    Icons.image_not_supported,
+                    color: Colors.grey[400],
+                    size: 40,
+                  ),
                   const SizedBox(height: 8),
                   Text(
                     'Preview not available',

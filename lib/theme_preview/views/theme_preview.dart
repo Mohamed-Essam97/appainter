@@ -164,7 +164,8 @@ class ThemePreview extends StatelessWidget {
         return DevicePreview(
           builder: (context) {
             return MaterialApp(
-              title: 'Appainter',
+              debugShowCheckedModeBanner: false,
+              title: 'iometer',
               theme: theme,
               locale: DevicePreview.locale(context),
               home: DefaultTabController(
