@@ -21,7 +21,7 @@ class HomeState extends Equatable {
     this.themeUsage,
     this.isSdkShowed = false,
     this.isImportingTheme = false,
-    this.themeMode = ThemeMode.system,
+    this.themeMode = ThemeMode.light,
     required this.appConfig,
   });
 

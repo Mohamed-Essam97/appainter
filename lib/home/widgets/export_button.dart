@@ -18,23 +18,41 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class ExportButton extends StatelessWidget {
+class ExportButton extends StatefulWidget {
   final Color color;
 
   const ExportButton({super.key, required this.color});
 
   @override
+  State<ExportButton> createState() => _ExportButtonState();
+}
+
+class _ExportButtonState extends State<ExportButton> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
-      icon: Icon(
-        MdiIcons.applicationExport,
-        color: color,
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          color: _isHovered 
+              ? Colors.white.withOpacity(0.1) 
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: IconButton(
+          icon: Icon(
+            MdiIcons.applicationExport,
+            color: widget.color,
+            size: 20,
+          ),
+          tooltip: 'Export Theme',
+          onPressed: () => _onPressed(context),
+        ),
       ),
-      label: Text(
-        'Export',
-        style: TextStyle(color: color),
-      ),
-      onPressed: () => _onPressed(context),
     );
   }
 

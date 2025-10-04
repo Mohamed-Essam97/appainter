@@ -15,6 +15,7 @@ class ImportButton extends StatefulWidget {
 
 class _ImportButtonState extends State<ImportButton> {
   ProgressDialog? _dialog;
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +32,27 @@ class _ImportButtonState extends State<ImportButton> {
           _dialog?.dismiss();
         }
       },
-      child: TextButton.icon(
-        icon: Icon(
-          MdiIcons.applicationImport,
-          color: widget.color,
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: _isHovered 
+                ? Colors.white.withOpacity(0.1) 
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: IconButton(
+            icon: Icon(
+              MdiIcons.applicationImport,
+              color: widget.color,
+              size: 20,
+            ),
+            tooltip: 'Import Theme',
+            onPressed: () => context.read<HomeCubit>().themeImported(),
+          ),
         ),
-        label: Text(
-          'Import',
-          style: TextStyle(color: widget.color),
-        ),
-        onPressed: () => context.read<HomeCubit>().themeImported(),
       ),
     );
   }

@@ -59,8 +59,13 @@ class HomePageState extends State<HomePage> {
             size: PaddingSize.medium,
           ),
           Text(
-            'ioMeter Community Builder',
-            style: TextStyle(color: color),
+            'Appainter Theme Builder',
+            style: TextStyle(
+              color: color,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+            ),
           ),
         ],
       ),
@@ -128,93 +133,130 @@ class HomePageState extends State<HomePage> {
 class _ScaffoldBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: kPaddingAll,
-      child: _EditorPreview(),
-    );
-  }
-}
-
-class _EditorPreview extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-          flex: 3,
-          child: _EditorsContainer(),
-        ),
-        const HorizontalPadding(),
-        Expanded(
-          flex: 1,
-          child: Card(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: const ThemePreview(),
+        // Vertical Sidebar Navigation
+        Container(
+          width: 280,
+          decoration: BoxDecoration(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.grey[900]!.withOpacity(0.8)
+                : Colors.grey[100]!.withOpacity(0.8),
+            border: Border(
+              right: BorderSide(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey[700]!
+                    : Colors.grey[300]!,
+                width: 1,
+              ),
             ),
+            // Glassmorphism effect
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 20,
+                offset: const Offset(0, 0),
+              ),
+            ],
           ),
+          child: _VerticalSidebar(),
         ),
-      ],
-    );
-  }
-}
-
-class _EditorsContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      buildWhen: (previous, current) => previous.editMode != current.editMode,
-      builder: (context, state) {
-        return DefaultTabController(
-          initialIndex: EditMode.values.indexOf(state.editMode),
-          length: EditMode.values.length,
-          child: Builder(
-            builder: (context) {
-              final controller = DefaultTabController.of(context);
-              controller.addListener(() {
-                if (!controller.indexIsChanging &&
-                    controller.index != controller.previousIndex) {
-                  context
-                      .read<HomeCubit>()
-                      .editModeChanged(EditMode.values[controller.index]);
-                }
-              });
-
-              return BlocListener<HomeCubit, HomeState>(
-                listenWhen: (previous, current) {
-                  return previous.editMode != current.editMode;
-                },
-                listener: (context, state) {
-                  controller.animateTo(EditMode.values.indexOf(state.editMode));
-                },
-                child: const _Editors(),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _Editors extends StatelessWidget {
-  const _Editors();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        _EditModeHeader(),
-        VerticalPadding(),
-        _ThemeConfigs(),
-        VerticalPadding(),
+        // Main Content Area
         Expanded(
-          child: TabBarView(
+          child: Row(
             children: [
-              BasicThemeEditor(),
-              AdvancedEditor(),
-              AppConfigEditor(),
-              VariationsEditor(),
+              // Editor Panel
+              Expanded(
+                flex: 2,
+                child: Container(
+                  margin: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey[850]!.withOpacity(0.9)
+                        : Colors.white.withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(12),
+                    // Glassmorphism effect
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 20,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: _EditorContent(),
+                  ),
+                ),
+              ),
+              // Device Preview Panel
+              Expanded(
+                flex: 1,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 16, right: 16, bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey[850]!.withOpacity(0.9)
+                        : Colors.white.withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(12),
+                    // Glassmorphism effect
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 20,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Column(
+                      children: [
+                        // Preview Header with Size Toggle
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey[800]
+                                : Colors.grey[50],
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey[700]!
+                                    : Colors.grey[200]!,
+                              ),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Device Preview',
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  _DeviceSizeButton(Icons.phone_android, 'Phone'),
+                                  const SizedBox(width: 8),
+                                  _DeviceSizeButton(Icons.tablet_mac, 'Tablet'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Preview Content
+                        Expanded(
+                          child: const ThemePreview(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -223,80 +265,270 @@ class _Editors extends StatelessWidget {
   }
 }
 
-class _EditModeHeader extends StatelessWidget {
-  const _EditModeHeader();
+class _DeviceSizeButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _DeviceSizeButton(this.icon, this.label);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _EditModeTabBar(),
+    return Tooltip(
+      message: label,
+      child: InkWell(
+        onTap: () {
+          // TODO: Implement device size toggle
+        },
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.grey[700]!.withOpacity(0.5)
+                : Colors.grey[200]!.withOpacity(0.5),
+          ),
+          child: Icon(
+            icon,
+            size: 18,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.grey[300]
+                : Colors.grey[700],
+          ),
         ),
-        const _EditModeActions(),
-      ],
-    );
-  }
-}
-
-class _EditModeTabBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TabBar(
-      tabs: EditMode.values.map((mode) {
-        final text = EnumToString.convertToString(mode, camelCase: true);
-        return Tab(
-          key: Key('homePage_editModeTabBar_$text'),
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        );
-      }).toList(),
-      onTap: (index) {
-        context.read<HomeCubit>().editModeChanged(EditMode.values[index]);
-      },
-    );
-  }
-}
-
-class _EditModeActions extends StatelessWidget {
-  const _EditModeActions();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      children: [
-        RandomThemeButton(),
-        HorizontalPadding(),
-        ResetThemeButton(),
-      ],
-    );
-  }
-}
-
-class _ThemeConfigs extends StatelessWidget {
-  const _ThemeConfigs();
-
-  @override
-  Widget build(BuildContext context) {
-    return MyCard(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Theme configurations',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const Row(
-            children: [
-              Material3Switch(),
-              HorizontalPadding(),
-              ThemeBrightnessSwitch(),
-            ],
-          ),
-        ],
       ),
     );
   }
 }
+
+class _VerticalSidebar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            // Sidebar Header
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey[700]!
+                        : Colors.grey[300]!,
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.palette,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.blue[300]
+                        : Colors.blue[600],
+                    size: 24,
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    'Theme Builder',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.grey[800],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Navigation Items
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                children: [
+                  _SidebarItem(
+                    icon: Icons.color_lens,
+                    label: 'Basic',
+                    isSelected: state.editMode == EditMode.basic,
+                    onTap: () => context.read<HomeCubit>().editModeChanged(EditMode.basic),
+                  ),
+                  _SidebarItem(
+                    icon: Icons.tune,
+                    label: 'Advanced',
+                    isSelected: state.editMode == EditMode.advanced,
+                    onTap: () => context.read<HomeCubit>().editModeChanged(EditMode.advanced),
+                  ),
+                  _SidebarItem(
+                    icon: Icons.settings,
+                    label: 'App Config',
+                    isSelected: state.editMode == EditMode.appConfig,
+                    onTap: () => context.read<HomeCubit>().editModeChanged(EditMode.appConfig),
+                  ),
+                  _SidebarItem(
+                    icon: Icons.view_module,
+                    label: 'Variations',
+                    isSelected: state.editMode == EditMode.variations,
+                    onTap: () => context.read<HomeCubit>().editModeChanged(EditMode.variations),
+                  ),
+                ],
+              ),
+            ),
+            // Theme Configuration Panel
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey[800]!.withOpacity(0.8)
+                    : Colors.grey[50]!.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.grey[700]!
+                      : Colors.grey[200]!,
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Configuration',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const Material3Switch(),
+                  const SizedBox(height: 8),
+                  const ThemeBrightnessSwitch(),
+                ],
+              ),
+            ),
+            // Action Buttons
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey[700]!
+                        : Colors.grey[300]!,
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(child: RandomThemeButton()),
+                  const SizedBox(width: 8),
+                  Expanded(child: ResetThemeButton()),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _SidebarItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _SidebarItem({
+    required this.icon,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: isSelected
+                  ? (isDark ? Colors.blue[600]!.withOpacity(0.2) : Colors.blue[50])
+                  : Colors.transparent,
+              border: isSelected
+                  ? Border.all(
+                      color: isDark ? Colors.blue[400]! : Colors.blue[300]!,
+                      width: 1,
+                    )
+                  : null,
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  size: 20,
+                  color: isSelected
+                      ? (isDark ? Colors.blue[300] : Colors.blue[600])
+                      : (isDark ? Colors.grey[400] : Colors.grey[600]),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  label,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontFamily: 'Inter',
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                    color: isSelected
+                        ? (isDark ? Colors.blue[300] : Colors.blue[600])
+                        : (isDark ? Colors.grey[300] : Colors.grey[700]),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _EditorContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        Widget editor;
+        switch (state.editMode) {
+          case EditMode.basic:
+            editor = const BasicThemeEditor();
+            break;
+          case EditMode.advanced:
+            editor = const AdvancedEditor();
+            break;
+          case EditMode.appConfig:
+            editor = const AppConfigEditor();
+            break;
+          case EditMode.variations:
+            editor = const VariationsEditor();
+            break;
+        }
+        
+        return Padding(
+          padding: const EdgeInsets.all(24),
+          child: editor,
+        );
+      },
+    );
+  }
+}
+
+// Old tab-based components removed - now using vertical sidebar layout

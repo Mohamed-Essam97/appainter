@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/icon.png
     - assets/variations/
+    - assets/svg/
 
 sentry:
   upload_native_symbols: true
