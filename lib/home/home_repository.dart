@@ -74,8 +74,11 @@ class HomeRepository {
 
   Future<bool> exportThemeWithConfig(ThemeData theme, AppConfig appConfig) async {
     final themeStr = ThemeSerializer.encodeThemeData(theme);
-    final exportData = {
-      'theme': themeStr,
+    final themeJson = jsonDecode(themeStr) as Map<String, dynamic>;
+    
+    // Merge theme data with app config to create a single JSON structure
+    final exportData = <String, dynamic>{
+      ...themeJson,
       'appConfig': appConfig.toJson(),
     };
     final exportStr = jsonEncode(exportData);

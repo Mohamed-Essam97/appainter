@@ -1,0 +1,581 @@
+{
+  "applyElevationOverlayColor": true,
+  "appBarTheme": {
+    "backgroundColor": "#ffffffff",
+    "foregroundColor": "#ff0089A7",
+    "elevation": 0,
+    "shadowColor": "#ff000000",
+    "titleTextStyle": {
+      "color": "#ffffffff",
+      "decoration": "none",
+      "decorationColor": "#ffffffff",
+      "fontFamily": "Montserrat",
+      "fontSize": 20,
+      "fontWeight": "w600",
+      "inherit": false,
+      "letterSpacing": 0.15,
+      "textBaseline": "alphabetic"
+    },
+    "iconTheme": {
+      "color": "#ff0089A7",
+      "size": 24
+    }
+  },
+  "bottomNavigationBarTheme": {
+    "backgroundColor": "#ffffffff",
+    "selectedItemColor": "#ff0089A7",
+    "unselectedItemColor": "#ff666666",
+    "elevation": 8,
+    "type": "fixed",
+    "selectedLabelStyle": {
+      "color": "#ff0089A7",
+      "decoration": "none",
+      "decorationColor": "#ff0089A7",
+      "fontFamily": "Montserrat",
+      "fontSize": 14,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0.25,
+      "textBaseline": "alphabetic"
+    },
+    "unselectedLabelStyle": {
+      "color": "#ff0089A7",
+      "decoration": "none",
+      "decorationColor": "#ff0089A7",
+      "fontFamily": "Montserrat",
+      "fontSize": 14,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0.25,
+      "textBaseline": "alphabetic"
+    }
+  },
+  "bottomSheetTheme": {
+    "backgroundColor": "#ffffffff"
+  },
+  "brightness": "light",
+  "canvasColor": "#ffffffff",
+  "cardColor": "#ffffffff",
+  "cardTheme": {
+    "clipBehavior": "antiAlias",
+    "color": "#ffffffff",
+    "elevation": 4,
+    "shadowColor": "#ff000000"
+  },
+  "colorScheme": {
+    "brightness": "light",
+    "primary": "#ff0089A7",
+    "onPrimary": "#ffffffff",
+    "primaryContainer": "#ffc2e8ff",
+    "onPrimaryContainer": "#ff001f3a",
+    "primaryFixed": "#ffc2e8ff",
+    "primaryFixedDim": "#ff0089A7",
+    "onPrimaryFixed": "#ff001d36",
+    "onPrimaryFixedVariant": "#ff006782",
+    "secondary": "#ff0089A7",
+    "onSecondary": "#ffffffff",
+    "secondaryContainer": "#ffc2e8ff",
+    "onSecondaryContainer": "#ff001f3a",
+    "secondaryFixed": "#ffc2e8ff",
+    "secondaryFixedDim": "#ff0089A7",
+    "onSecondaryFixed": "#ff001f3a",
+    "onSecondaryFixedVariant": "#ff006782",
+    "tertiary": "#ff58A169",
+    "onTertiary": "#ffffffff",
+    "tertiaryContainer": "#fff2daff",
+    "onTertiaryContainer": "#ff251431",
+    "tertiaryFixed": "#fff2daff",
+    "tertiaryFixedDim": "#ffd6bee4",
+    "onTertiaryFixed": "#ff251431",
+    "onTertiaryFixedVariant": "#ff523f5f",
+    "error": "#ffBE2331",
+    "onError": "#ffffffff",
+    "errorContainer": "#ffffdad6",
+    "onErrorContainer": "#ff410002",
+    "outline": "#ff74777f",
+    "outlineVariant": "#ffc4c6cf",
+    "surface": "#fff8f9ff",
+    "onSurface": "#ff21232F",
+    "surfaceVariant": "#ffeceef4",
+    "onSurfaceVariant": "#ff43474e",
+    "surfaceBright": "#fff8f9ff",
+    "surfaceContainer": "#ffeceef4",
+    "surfaceContainerHigh": "#ffe6e8ee",
+    "surfaceContainerHighest": "#ffe1e2e8",
+    "surfaceContainerLow": "#fff2f3fa",
+    "surfaceContainerLowest": "#ffffffff",
+    "surfaceDim": "#ffd8dae0",
+    "inverseSurface": "#ff2f3033",
+    "onInverseSurface": "#fff1f0f4",
+    "inversePrimary": "#ff0089A7",
+    "shadow": "#ff000000",
+    "scrim": "#ff000000",
+    "surfaceTint": "#ff0089A7"
+  },
+  "disabledColor": "#61000000",
+  "dialogTheme": {
+    "backgroundColor": "#ffffffff",
+    "elevation": 24,
+    "titleTextStyle": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 24,
+      "fontWeight": "w600",
+      "inherit": false,
+      "letterSpacing": 0.15,
+      "textBaseline": "alphabetic"
+    },
+    "contentTextStyle": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 16,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0.25,
+      "textBaseline": "alphabetic"
+    }
+  },
+  "dividerColor": "#ff77787B",
+  "dividerTheme": {
+    "color": "#ff77787B",
+    "thickness": 1
+  },
+
+  "floatingActionButtonTheme": {
+    "backgroundColor": "#ff0089A7",
+    "foregroundColor": "#ffffffff",
+    "elevation": 6
+  },
+  "focusColor": "#1f000000",
+  "highlightColor": "#66bcbcbc",
+  "hintColor": "#99000000",
+  "hoverColor": "#0a000000",
+  "iconTheme": {
+    "color": "#dd000000",
+    "size": 24
+  },
+  "elevatedButtonTheme": {
+    "style": {
+      "backgroundColor": "#ff0089A7",
+      "foregroundColor": "#ffffffff",
+      "elevation": 0,
+      "minimumSize": {
+        "width": 88,
+        "height": 50
+      },
+      "shape": {
+        "borderRadius": {
+          "type": "all",
+          "radius": 8
+        },
+        "type": "rounded"
+      },
+      "textStyle": {
+        "color": "#ffffffff",
+        "decoration": "none",
+        "decorationColor": "#ffffffff",
+        "fontFamily": "Montserrat",
+        "fontSize": 16,
+        "fontWeight": "w600",
+        "inherit": false,
+        "letterSpacing": 0.25,
+        "textBaseline": "alphabetic"
+      }
+    }
+  },
+  "outlinedButtonTheme": {
+    "style": {
+      "foregroundColor": "#ff0089A7",
+      "side": {
+        "color": "#ff0089A7",
+        "width": 1.5
+      },
+      "minimumSize": {
+        "width": 88,
+        "height": 50
+      },
+      "shape": {
+        "borderRadius": {
+          "type": "all",
+          "radius": 8
+        },
+        "type": "rounded"
+      },
+      "textStyle": {
+        "color": "#ff0089A7",
+        "decoration": "none",
+        "decorationColor": "#ff0089A7",
+        "fontFamily": "Montserrat",
+        "fontSize": 16,
+        "fontWeight": "w600",
+        "inherit": false,
+        "letterSpacing": 0.25,
+        "textBaseline": "alphabetic"
+      }
+    }
+  },
+  "iconButtonTheme": {
+    "style": {
+      "shape": {
+        "borderRadius": {
+          "type": "all",
+          "radius": 8
+        },
+        "type": "rounded"
+      },
+      "foregroundColor": "#dd000000",
+      "backgroundColor": "transparent",
+      "overlayColor": "#ff0089A720",
+      "shadowColor": "transparent",
+      "elevation": 0,
+      "minimumSize": {
+        "width": 88,
+        "height": 45
+      },
+      "iconSize": 24
+    }
+  },
+  "indicatorColor": "#ff0089A7",
+  "inputDecorationTheme": {
+    "alignLabelWithHint": false,
+    "border": {
+      "type": "outline",
+      "borderRadius": {
+        "type": "all",
+        "radius": 8
+      },
+      "borderSide": {
+        "color": "#ffE0E0E0",
+        "style": "solid",
+        "width": 1
+      }
+    },
+    "constraints": {
+      "minHeight": 48
+    },
+    "contentPadding": {
+      "left": 12,
+      "top": 16,
+      "right": 12,
+      "bottom": 16
+    },
+    "enabledBorder": {
+      "type": "outline",
+      "borderRadius": {
+        "type": "all",
+        "radius": 8
+      },
+      "borderSide": {
+        "color": "#ffE0E0E0",
+        "style": "solid",
+        "width": 1
+      }
+    },
+    "errorBorder": {
+      "type": "outline",
+      "borderRadius": {
+        "type": "all",
+        "radius": 8
+      },
+      "borderSide": {
+        "color": "#ffF44336",
+        "style": "solid",
+        "width": 1
+      }
+    },
+    "errorStyle": {
+      "color": "#ffF44336",
+      "fontSize": 12,
+      "fontWeight": "w400"
+    },
+    "filled": false,
+    "floatingLabelBehavior": "never",
+    "focusedBorder": {
+      "type": "outline",
+      "borderRadius": {
+        "type": "all",
+        "radius": 8
+      },
+      "borderSide": {
+        "color": "#ff2196F3",
+        "style": "solid",
+        "width": 2
+      }
+    },
+    "focusedErrorBorder": {
+      "type": "outline",
+      "borderRadius": {
+        "type": "all",
+        "radius": 8
+      },
+      "borderSide": {
+        "color": "#ffF44336",
+        "style": "solid",
+        "width": 2
+      }
+    },
+    "hintStyle": {
+      "color": "#ff9E9E9E",
+      "fontSize": 16,
+      "fontWeight": "w400"
+    }
+  },
+  "listTileTheme": {
+    "iconColor": "#dd000000",
+    "textColor": "#ff21232F",
+    "dense": false
+  },
+  "materialTapTargetSize": "shrinkWrap",
+
+  "platform": "macOS",
+  "primaryColor": "#ff0089A7",
+  "primaryColorDark": "#ff006782",
+  "primaryColorLight": "#ffc2e8ff",
+  "primaryIconTheme": {
+    "color": "#ffffffff"
+  },
+  "scaffoldBackgroundColor": "#ffffffff",
+  "secondaryHeaderColor": "#ff21232F",
+  "shadowColor": "#ff000000",
+  "sliderTheme": {
+    "activeTrackColor": "#ff0089A7",
+    "inactiveTrackColor": "#ff77787B",
+    "thumbColor": "#ff0089A7"
+  },
+  "snackBarTheme": {
+    "backgroundColor": "#ff2f3033",
+    "actionTextColor": "#ff0089A7",
+    "behavior": "floating",
+    "contentTextStyle": {
+      "color": "#fff1f0f4",
+      "decoration": "none",
+      "decorationColor": "#fff1f0f4",
+      "fontFamily": "Montserrat",
+      "fontSize": 14,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0.25,
+      "textBaseline": "alphabetic"
+    }
+  },
+  "splashColor": "#66c2e8ff",
+  "splashFactory": "ripple",
+  "tabBarTheme": {
+    "indicatorColor": "#ff0089A7",
+    "labelColor": "#ffffffff",
+    "unselectedLabelColor": "#ff0089A7",
+    "labelStyle": {
+      "color": "#ffffffff",
+      "decoration": "none",
+      "decorationColor": "#ffffffff",
+      "fontSize": 12,
+      "fontWeight": "w500",
+      "inherit": false,
+      "letterSpacing": 0.25,
+      "textBaseline": "alphabetic"
+    },
+    "unselectedLabelStyle": {
+      "color": "#ff0089A7",
+      "decoration": "none",
+      "decorationColor": "#ff0089A7",
+      "fontSize": 12,
+      "fontWeight": "w500",
+      "inherit": false,
+      "letterSpacing": 0.25,
+      "textBaseline": "alphabetic"
+    }
+  },
+  "textButtonTheme": {
+    "style": {
+      "foregroundColor": "#ff0089A7",
+      "textStyle": {
+        "color": "#ff0089A7",
+        "decoration": "none",
+        "decorationColor": "#ff0089A7",
+        "fontFamily": "Montserrat",
+        "fontSize": 16,
+        "fontWeight": "w600",
+        "inherit": false,
+        "letterSpacing": 0.25,
+        "textBaseline": "alphabetic"
+      }
+    }
+  },
+  "textSelectionTheme": {
+    "selectionColor": "#6750A450",
+    "selectionHandleColor": "#6750A4",
+    "cursorColor": "#6750A4"
+  },
+  "textTheme": {
+    "displayLarge": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 57,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0,
+      "textBaseline": "alphabetic"
+    },
+    "displayMedium": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 45,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0,
+      "textBaseline": "alphabetic"
+    },
+    "displaySmall": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 36,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0,
+      "textBaseline": "alphabetic"
+    },
+    "headlineLarge": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 32,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0,
+      "textBaseline": "alphabetic"
+    },
+    "headlineMedium": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 28,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0,
+      "textBaseline": "alphabetic"
+    },
+    "headlineSmall": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 24,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0,
+      "textBaseline": "alphabetic"
+    },
+    "titleLarge": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 20,
+      "fontWeight": "w500",
+      "inherit": false,
+      "letterSpacing": 0.15,
+      "textBaseline": "alphabetic"
+    },
+    "titleMedium": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 16,
+      "fontWeight": "w500",
+      "inherit": false,
+      "letterSpacing": 0.15,
+      "textBaseline": "alphabetic"
+    },
+    "titleSmall": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 14,
+      "fontWeight": "w500",
+      "inherit": false,
+      "letterSpacing": 0.1,
+      "textBaseline": "alphabetic"
+    },
+    "labelLarge": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 14,
+      "fontWeight": "w500",
+      "inherit": false,
+      "letterSpacing": 0.1,
+      "textBaseline": "alphabetic"
+    },
+    "labelMedium": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 12,
+      "fontWeight": "w500",
+      "inherit": false,
+      "letterSpacing": 0.5,
+      "textBaseline": "alphabetic"
+    },
+    "labelSmall": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 11,
+      "fontWeight": "w500",
+      "inherit": false,
+      "letterSpacing": 0.5,
+      "textBaseline": "alphabetic"
+    },
+    "bodyLarge": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 16,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0.5,
+      "textBaseline": "alphabetic"
+    },
+    "bodyMedium": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 14,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0.25,
+      "textBaseline": "alphabetic"
+    },
+    "bodySmall": {
+      "color": "#ff21232F",
+      "decoration": "none",
+      "decorationColor": "#ff21232F",
+      "fontFamily": "Montserrat",
+      "fontSize": 12,
+      "fontWeight": "w400",
+      "inherit": false,
+      "letterSpacing": 0.4,
+      "textBaseline": "alphabetic"
+    }
+  },
+  "useMaterial3": true
+}
