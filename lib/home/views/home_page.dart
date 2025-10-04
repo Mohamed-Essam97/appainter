@@ -28,6 +28,8 @@ class HomePageState extends State<HomePage> {
     context.read<HomeCubit>().themeUsageFetched();
   }
 
+  bool _showFloatingPreview = false;
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -38,7 +40,30 @@ class HomePageState extends State<HomePage> {
         listener: _listener,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: _ScaffoldBody(),
+          child: Stack(
+            children: [
+              _ScaffoldBody(
+                showFloatingPreview: _showFloatingPreview,
+                onToggleFloatingPreview: () {
+                  setState(() {
+                    _showFloatingPreview = !_showFloatingPreview;
+                  });
+                },
+              ),
+              if (_showFloatingPreview)
+                ScalableDraggablePreview(
+                  child: const ThemePreview(),
+                  initialSize: const Size(300, 500),
+                  minSize: const Size(200, 300),
+                  maxSize: const Size(800, 1200),
+                  onClose: () {
+                    setState(() {
+                      _showFloatingPreview = false;
+                    });
+                  },
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -131,6 +156,14 @@ class HomePageState extends State<HomePage> {
 }
 
 class _ScaffoldBody extends StatelessWidget {
+  const _ScaffoldBody({
+    required this.showFloatingPreview,
+    required this.onToggleFloatingPreview,
+  });
+
+  final bool showFloatingPreview;
+  final VoidCallback onToggleFloatingPreview;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -243,6 +276,13 @@ class _ScaffoldBody extends StatelessWidget {
                                   _DeviceSizeButton(Icons.phone_android, 'Phone'),
                                   const SizedBox(width: 8),
                                   _DeviceSizeButton(Icons.tablet_mac, 'Tablet'),
+                                  const SizedBox(width: 8),
+                                  IconButton(
+                                    onPressed: onToggleFloatingPreview,
+                                    icon: Icon(showFloatingPreview ? Icons.picture_in_picture : Icons.open_in_new),
+                                    tooltip: showFloatingPreview ? 'Dock Preview' : 'Float Preview',
+                                    iconSize: 18,
+                                  ),
                                 ],
                               ),
                             ],
@@ -250,7 +290,40 @@ class _ScaffoldBody extends StatelessWidget {
                         ),
                         // Preview Content
                         Expanded(
-                          child: const ThemePreview(),
+                          child: showFloatingPreview 
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).brightness == Brightness.dark
+                                      ? Colors.grey[800]!.withOpacity(0.3)
+                                      : Colors.grey[100]!.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.open_in_new,
+                                        size: 48,
+                                        color: Theme.of(context).brightness == Brightness.dark
+                                            ? Colors.grey[600]
+                                            : Colors.grey[400],
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        'Preview is floating',
+                                        style: TextStyle(
+                                          color: Theme.of(context).brightness == Brightness.dark
+                                              ? Colors.grey[600]
+                                              : Colors.grey[400],
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : const ThemePreview(),
                         ),
                       ],
                     ),
