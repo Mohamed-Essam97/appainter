@@ -255,6 +255,16 @@ class DrawerConfig extends Equatable {
     );
   }
 
+  DrawerConfig reorderItems(int oldIndex, int newIndex) {
+    final newItems = List<DrawerItem>.from(items);
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final item = newItems.removeAt(oldIndex);
+    newItems.insert(newIndex, item);
+    return copyWith(items: newItems);
+  }
+
   @override
   List<Object?> get props => [drawerType, header, items];
 }

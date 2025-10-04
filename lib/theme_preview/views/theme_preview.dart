@@ -216,37 +216,127 @@ class ThemePreview extends StatelessWidget {
 class _Drawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-            ),
-            child: const Text(
-              'Drawer header',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        final drawerConfig = state.appConfig.drawer;
+
+        return Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              // Dynamic drawer header
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (drawerConfig.header.logo.isNotEmpty)
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            drawerConfig.header.logo,
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    Text(
+                      drawerConfig.header.title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              // Dynamic drawer items
+              ...drawerConfig.items.where((item) => item.isEnabled).map(
+                    (item) => ListTile(
+                      leading: _getIconFromPath(item.icon),
+                      title: Text(_getDisplayTitle(item.title)),
+                      onTap: () {
+                        // Close drawer when item is tapped
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+            ],
           ),
-          const ListTile(
-            leading: Icon(Icons.message),
-            title: Text('Messages'),
-          ),
-          const ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text('Profile'),
-          ),
-          const ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-          ),
-        ],
-      ),
+        );
+      },
     );
+  }
+
+  Widget _getIconFromPath(String iconPath) {
+    // For SVG assets, we'll use a generic icon since we can't load SVG in this context
+    // In a real app, you'd use flutter_svg package
+    if (iconPath.contains('gate_pass')) return const SizedBox.shrink();
+    if (iconPath.contains('invitations')) return const SizedBox.shrink();
+    if (iconPath.contains('utilities')) return const SizedBox.shrink();
+    if (iconPath.contains('dues')) return const SizedBox.shrink();
+    if (iconPath.contains('communityPayments')) return const SizedBox.shrink();
+    if (iconPath.contains('requests')) return const SizedBox.shrink();
+    if (iconPath.contains('documents')) return SizedBox.shrink();
+    if (iconPath.contains('guidelines')) return const SizedBox.shrink();
+    if (iconPath.contains('contact')) return const SizedBox.shrink();
+    if (iconPath.contains('settings')) return const SizedBox.shrink();
+    if (iconPath.contains('logout')) return const SizedBox.shrink();
+
+    // Default icon for unknown paths
+    return const Icon(Icons.menu);
+  }
+
+  String _getDisplayTitle(String title) {
+    // Convert drawer keys to readable titles
+    if (title.startsWith('drawer.')) {
+      final key = title.substring(7); // Remove 'drawer.' prefix
+      switch (key) {
+        case 'gatePass':
+          return 'Gate Pass';
+        case 'invitations':
+          return 'Invitations';
+        case 'utilities':
+          return 'Utilities';
+        case 'dues':
+          return 'Dues';
+        case 'community_payments':
+          return 'Community Payments';
+        case 'requests':
+          return 'Requests';
+        case 'documents':
+          return 'Documents';
+        case 'community_guidelines':
+          return 'Community Guidelines';
+        case 'contact_us':
+          return 'Contact Us';
+        case 'sendCommunityRequest':
+          return 'Send Community Request';
+        case 'biometric':
+          return 'Biometric';
+        case 'manage_saved_users':
+          return 'Manage Saved Users';
+        case 'logout':
+          return 'Logout';
+        default:
+          return key
+              .replaceAll('_', ' ')
+              .split(' ')
+              .map(
+                (word) => word.isNotEmpty
+                    ? word[0].toUpperCase() + word.substring(1)
+                    : '',
+              )
+              .join(' ');
+      }
+    }
+    return title;
   }
 }
 

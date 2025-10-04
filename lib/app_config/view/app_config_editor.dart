@@ -378,16 +378,26 @@ class _DrawerItemsList extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        for (int i = 0; i < drawer.items.length; i++)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: _DrawerItemRow(
-              index: i,
-              item: drawer.items[i],
-              onRemove: () => _removeDrawerItem(context, drawer.items[i].id),
-              onToggle: () => _toggleDrawerItem(context, drawer.items[i].id),
-            ),
-          ),
+        // Use ReorderableListView for drag-to-sort functionality
+        ReorderableListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: drawer.items.length,
+          onReorder: (oldIndex, newIndex) => _reorderDrawerItems(context, oldIndex, newIndex),
+          itemBuilder: (context, index) {
+            final item = drawer.items[index];
+            return Padding(
+              key: ValueKey(item.id),
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: _DrawerItemRow(
+                index: index,
+                item: item,
+                onRemove: () => _removeDrawerItem(context, item.id),
+                onToggle: () => _toggleDrawerItem(context, item.id),
+              ),
+            );
+          },
+        ),
       ],
     );
   }
@@ -410,6 +420,13 @@ class _DrawerItemsList extends StatelessWidget {
     final cubit = context.read<HomeCubit>();
     final currentDrawer = cubit.state.appConfig.drawer;
     final updatedDrawer = currentDrawer.toggleItemEnabled(itemId);
+    cubit.updateDrawerConfig(updatedDrawer);
+  }
+
+  void _reorderDrawerItems(BuildContext context, int oldIndex, int newIndex) {
+    final cubit = context.read<HomeCubit>();
+    final currentDrawer = cubit.state.appConfig.drawer;
+    final updatedDrawer = currentDrawer.reorderItems(oldIndex, newIndex);
     cubit.updateDrawerConfig(updatedDrawer);
   }
 }
