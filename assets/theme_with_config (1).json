@@ -1,0 +1,195 @@
+{
+  "theme": "{\"brightness\":\"light\",\"primaryColor\":4281753998,\"scaffoldBackgroundColor\":4294507007,\"canvasColor\":4294507007,\"cardColor\":4294507007,\"dividerColor\":521739296,\"focusColor\":520093696,\"hoverColor\":167772160,\"highlightColor\":1723645116,\"splashColor\":1724434632,\"unselectedWidgetColor\":2315255808,\"disabledColor\":1627389952,\"dialogBackgroundColor\":4294507007,\"indicatorColor\":4294967295,\"hintColor\":2566914048,\"errorColor\":4290386458,\"colorScheme\":{\"brightness\":\"light\",\"primary\":4281753998,\"onPrimary\":4294967295,\"secondary\":4283654000,\"onSecondary\":4294967295,\"error\":4290386458,\"onError\":4294967295,\"surface\":4294507007,\"onSurface\":4279835680}}",
+  "appConfig": {
+    "logo": {
+      "default": { "fileName": "logo_light.png", "hasData": false },
+      "dark": { "fileName": "logo_dark.png", "hasData": false },
+      "small": { "fileName": "logo_small.png", "hasData": false },
+      "splashScreen": { "fileName": "splash.png", "hasData": false }
+    },
+    "icon": { "fileName": "app_icon.png", "hasData": false },
+    "name": "Lasirena",
+    "version": "1.0.0",
+    "packageName": "com.lasirena.app",
+    "settings": {
+      "isPrivateApp": true,
+      "haveAccountSelector": true,
+      "communityGuidelinesPdfs": {
+        "servicePricesPdf": "assets/service_prices.pdf",
+        "ownerPdf": "assets/owner.pdf",
+        "firstTabLabel": "Service Prices",
+        "secondTabLabel": "Owner Guide"
+      },
+      "accounts": [
+        {
+          "accountKey": "LASIRENA_PALM",
+          "accountName": "Palm Beach Sokhna",
+          "accountLogo": "assets/config/lasarina_palm.png"
+        },
+        {
+          "accountKey": "LASIRENA_NORTH",
+          "accountName": "North Cost",
+          "accountLogo": "assets/config/lasarina_north.png"
+        }
+      ]
+    },
+    "variations": {
+      "feeds": { "cardType": "feedsCardType_v1" },
+      "facility": {
+        "facilityRequestCardType": "facilityRequestCardType_v1",
+        "facilityRequestDetailsType": "facilityRequestDetailsType_v1",
+        "facilityServiceCardType": "facilityServiceCardType_v1",
+        "facilityCategoryCardType": "facilityCategoryCardType_v1",
+        "facilityInfoRowType": "facilityInfoRowType_v1"
+      },
+      "identity_badge": {
+        "accessKeySelectorType": "accessKeySelectorType_v1",
+        "identityBadgeQRCodeType": "identityBadgeQRCodeType_v1"
+      },
+      "gatePass": { "gatePassCardType": "gatePassCardType_v1" },
+      "invitations": { "invitationCardType": "invitationCardType_v1" },
+      "dues": {
+        "duesCardWidgetType": "duesCardWidgetType_v1",
+        "duesDetailsType": "duesDetailsType_v1"
+      },
+      "communityRequests": {
+        "communityCategoryGridItemType": "communityCategoryGridItemType_v1",
+        "communityRequestCardType": "communityRequestCardType_v1",
+        "communityRequestDetailsType": "communityRequestDetailsType_v1"
+      },
+      "profile": {
+        "profileHeaderType": "profileHeaderType_v1",
+        "profileItemType": "profileItemType_v1"
+      },
+      "faqs": { "faqsType": "faqsType_v1" },
+      "language": { "languageSelectionType": "languageSelectionType_v1" },
+      "contactUs": { "contactUsScreenType": "contactUsScreenType_v1" },
+      "communityGuidelines": {
+        "communityGuidelinesType": "communityGuidelinesType_v1"
+      },
+      "filledTabType": "filledTabType_v1",
+      "borderTabType": "borderTabType_v1",
+      "propertySelectorType": "propertySelectorType_v1"
+    },
+    "drawer": {
+      "drawerType": "drawer_v2",
+      "header": {
+        "logo": "assets/app/lasirena_logo_light.png",
+        "title": "Menu"
+      },
+      "items": [
+        {
+          "id": "drawer2",
+          "title": "drawer.gatePass",
+          "icon": "assets/svg/gate_pass.svg",
+          "isEnabled": true,
+          "screen": "gatePass"
+        },
+        {
+          "id": "drawer3",
+          "title": "drawer.invitations",
+          "icon": "assets/svg/invitations.svg",
+          "isEnabled": true,
+          "screen": "invitations"
+        },
+        {
+          "id": "drawer4",
+          "title": "drawer.utilities",
+          "icon": "assets/svg/utilities.svg",
+          "isEnabled": true,
+          "screen": "utilities"
+        },
+        {
+          "id": "drawer5",
+          "title": "drawer.dues",
+          "icon": "assets/svg/dues.svg",
+          "isEnabled": true,
+          "screen": "dues"
+        },
+        {
+          "id": "drawer6",
+          "title": "drawer.community_payments",
+          "icon": "assets/svg/communityPayments.svg",
+          "isEnabled": true,
+          "screen": "communityPayments"
+        },
+        {
+          "id": "drawer7",
+          "title": "drawer.requests",
+          "icon": "assets/svg/requests.svg",
+          "isEnabled": true,
+          "screen": "communityRequests"
+        },
+        {
+          "id": "drawer8",
+          "title": "drawer.documents",
+          "icon": "assets/svg/documents.svg",
+          "isEnabled": true,
+          "screen": "documents"
+        },
+        {
+          "id": "drawer9",
+          "title": "drawer.community_guidelines",
+          "icon": "assets/svg/guidelines.svg",
+          "isEnabled": true,
+          "screen": "communityGuidelines"
+        },
+        {
+          "id": "drawer10",
+          "title": "drawer.contact_us",
+          "icon": "assets/svg/contact.svg",
+          "isEnabled": true,
+          "screen": "contactUs"
+        },
+        {
+          "id": "drawer11",
+          "title": "drawer.sendCommunityRequest",
+          "icon": "assets/svg/contact.svg",
+          "isEnabled": true,
+          "screen": "sendCommunityRequest"
+        },
+        {
+          "id": "drawer12",
+          "title": "drawer.biometric",
+          "icon": "assets/svg/contact.svg",
+          "isEnabled": true,
+          "screen": "biometric"
+        },
+        {
+          "id": "drawer13",
+          "title": "drawer.manage_saved_users",
+          "icon": "assets/svg/settings.svg",
+          "isEnabled": true,
+          "screen": "manageSavedUsers"
+        },
+        {
+          "id": "drawer14",
+          "title": "drawer.logout",
+          "icon": "assets/svg/logout.svg",
+          "isEnabled": true,
+          "action": "logout"
+        }
+      ]
+    },
+    "modules": {
+      "modules": [
+        { "id": "utilities", "name": "Utilities", "isEnabled": true },
+        { "id": "facility", "name": "Facility", "isEnabled": true },
+        {
+          "id": "community_requests",
+          "name": "Community Requests",
+          "isEnabled": false
+        },
+        { "id": "smart_gates", "name": "Smart Gates", "isEnabled": true },
+        { "id": "invitations", "name": "Invitations", "isEnabled": false },
+        { "id": "dues", "name": "Dues", "isEnabled": true },
+        { "id": "documents", "name": "Documents", "isEnabled": true },
+        {
+          "id": "community_payments",
+          "name": "Community Payments",
+          "isEnabled": true
+        }
+      ]
+    }
+  }
+}

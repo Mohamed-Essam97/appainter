@@ -548,6 +548,7 @@ class AppConfig extends Equatable {
   final AppSettings settings;
   final AppVariations variations;
   final DrawerConfig drawer;
+  final ModulesConfig modules;
 
   const AppConfig({
     required this.logo,
@@ -558,6 +559,7 @@ class AppConfig extends Equatable {
     required this.settings,
     required this.variations,
     required this.drawer,
+    required this.modules,
   });
 
   factory AppConfig.defaultConfig() {
@@ -575,6 +577,7 @@ class AppConfig extends Equatable {
       settings: AppSettings.defaultSettings(),
       variations: AppVariations.defaultVariations(),
       drawer: DrawerConfig.defaultConfig(),
+      modules: ModulesConfig.defaultConfig(),
     );
   }
 
@@ -588,6 +591,7 @@ class AppConfig extends Equatable {
       'settings': settings.toJson(),
       'variations': variations.toJson(),
       'drawer': drawer.toJson(),
+      'modules': modules.toJson(),
     };
   }
 
@@ -601,11 +605,12 @@ class AppConfig extends Equatable {
       settings: AppSettings.fromJson(json['settings'] as Map<String, dynamic>? ?? const {}),
       variations: AppVariations.fromJson(json['variations'] as Map<String, dynamic>),
       drawer: DrawerConfig.fromJson(json['drawer'] as Map<String, dynamic>? ?? const {}),
+      modules: ModulesConfig.fromJson(json['modules'] as Map<String, dynamic>? ?? const {}),
     );
   }
 
   @override
-  List<Object?> get props => [logo, icon, name, version, packageName, settings, variations, drawer];
+  List<Object?> get props => [logo, icon, name, version, packageName, settings, variations, drawer, modules];
 
   AppConfig copyWith({
     AppLogo? logo,
@@ -616,6 +621,7 @@ class AppConfig extends Equatable {
     AppSettings? settings,
     AppVariations? variations,
     DrawerConfig? drawer,
+    ModulesConfig? modules,
   }) {
     return AppConfig(
       logo: logo ?? this.logo,
@@ -626,6 +632,7 @@ class AppConfig extends Equatable {
       settings: settings ?? this.settings,
       variations: variations ?? this.variations,
       drawer: drawer ?? this.drawer,
+      modules: modules ?? this.modules,
     );
   }
 }
@@ -848,4 +855,104 @@ class AppAccount extends Equatable {
 
   @override
   List<Object?> get props => [accountKey, accountName, accountLogo];
+}
+
+class AppModule extends Equatable {
+  final String id;
+  final String name;
+  final bool isEnabled;
+
+  const AppModule({
+    required this.id,
+    required this.name,
+    required this.isEnabled,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'isEnabled': isEnabled,
+    };
+  }
+
+  factory AppModule.fromJson(Map<String, dynamic> json) {
+    return AppModule(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      isEnabled: json['isEnabled'] as bool? ?? true,
+    );
+  }
+
+  AppModule copyWith({
+    String? id,
+    String? name,
+    bool? isEnabled,
+  }) {
+    return AppModule(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      isEnabled: isEnabled ?? this.isEnabled,
+    );
+  }
+
+  @override
+  List<Object?> get props => [id, name, isEnabled];
+}
+
+class ModulesConfig extends Equatable {
+  final List<AppModule> modules;
+
+  const ModulesConfig({
+    required this.modules,
+  });
+
+  static const List<AppModule> defaultModules = [
+    AppModule(id: 'utilities', name: 'Utilities', isEnabled: true),
+    AppModule(id: 'facility', name: 'Facility', isEnabled: true),
+    AppModule(id: 'community_requests', name: 'Community Requests', isEnabled: true),
+    AppModule(id: 'smart_gates', name: 'Smart Gates', isEnabled: true),
+    AppModule(id: 'invitations', name: 'Invitations', isEnabled: true),
+    AppModule(id: 'dues', name: 'Dues', isEnabled: true),
+    AppModule(id: 'documents', name: 'Documents', isEnabled: true),
+    AppModule(id: 'community_payments', name: 'Community Payments', isEnabled: true),
+  ];
+
+  factory ModulesConfig.defaultConfig() {
+    return const ModulesConfig(modules: defaultModules);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'modules': modules.map((module) => module.toJson()).toList(),
+    };
+  }
+
+  factory ModulesConfig.fromJson(Map<String, dynamic> json) {
+    return ModulesConfig(
+      modules: (json['modules'] as List<dynamic>?)
+              ?.map((item) => AppModule.fromJson(item as Map<String, dynamic>))
+              .toList() ??
+          defaultModules,
+    );
+  }
+
+  ModulesConfig copyWith({
+    List<AppModule>? modules,
+  }) {
+    return ModulesConfig(
+      modules: modules ?? this.modules,
+    );
+  }
+
+  ModulesConfig toggleModule(String moduleId) {
+    return copyWith(
+      modules: modules.map((module) =>
+        module.id == moduleId ? module.copyWith(isEnabled: !module.isEnabled) : module
+      ).toList(),
+    );
+  }
+
+  @override
+  List<Object?> get props => [modules];
 }

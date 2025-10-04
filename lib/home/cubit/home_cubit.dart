@@ -126,4 +126,9 @@ class HomeCubit extends Cubit<HomeState> {
     final updatedConfig = state.appConfig.copyWith(settings: settings);
     emit(state.copyWith(appConfig: updatedConfig));
   }
+
+  void updateModulesConfig(ModulesConfig modules) {
+    final updatedConfig = state.appConfig.copyWith(modules: modules);
+    emit(state.copyWith(appConfig: updatedConfig));
+  }
 }
