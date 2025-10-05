@@ -2,7 +2,7 @@ part of 'home_cubit.dart';
 
 enum HomeStatus { initial, success }
 
-enum EditMode { basic, advanced, appConfig, variations }
+enum EditMode { basic, advanced, appConfig, variations, modules }
 
 @CopyWith()
 @immutable

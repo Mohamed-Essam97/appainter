@@ -3,10 +3,10 @@ import 'package:appainter/app_config/app_config.dart';
 import 'package:appainter/basic_theme/basic_theme.dart';
 import 'package:appainter/common/common.dart';
 import 'package:appainter/home/home.dart';
+import 'package:appainter/modules/view/modules_editor.dart';
 import 'package:appainter/theme_preview/theme_preview.dart';
 import 'package:appainter/variations/view/variations_editor.dart';
 import 'package:appainter/widgets/widgets.dart';
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,7 +52,6 @@ class HomePageState extends State<HomePage> {
               ),
               if (_showFloatingPreview)
                 ScalableDraggablePreview(
-                  child: const ThemePreview(),
                   initialSize: const Size(300, 500),
                   minSize: const Size(200, 300),
                   maxSize: const Size(800, 1200),
@@ -61,6 +60,7 @@ class HomePageState extends State<HomePage> {
                       _showFloatingPreview = false;
                     });
                   },
+                  child: const ThemePreview(),
                 ),
             ],
           ),
@@ -84,7 +84,7 @@ class HomePageState extends State<HomePage> {
             size: PaddingSize.medium,
           ),
           Text(
-            'Appainter Theme Builder',
+            'ioMeter Theme Builder',
             style: TextStyle(
               color: color,
               fontFamily: 'Inter',
@@ -250,12 +250,14 @@ class _ScaffoldBody extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? Colors.grey[800]
-                                : Colors.grey[50],
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey[800]
+                                    : Colors.grey[50],
                             border: Border(
                               bottom: BorderSide(
-                                color: Theme.of(context).brightness == Brightness.dark
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
                                     ? Colors.grey[700]!
                                     : Colors.grey[200]!,
                               ),
@@ -266,21 +268,29 @@ class _ScaffoldBody extends StatelessWidget {
                             children: [
                               Text(
                                 'Device Preview',
-                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w600,
+                                    ),
                               ),
                               Row(
                                 children: [
-                                  _DeviceSizeButton(Icons.phone_android, 'Phone'),
+                                  _DeviceSizeButton(
+                                      Icons.phone_android, 'Phone'),
                                   const SizedBox(width: 8),
                                   _DeviceSizeButton(Icons.tablet_mac, 'Tablet'),
                                   const SizedBox(width: 8),
                                   IconButton(
                                     onPressed: onToggleFloatingPreview,
-                                    icon: Icon(showFloatingPreview ? Icons.picture_in_picture : Icons.open_in_new),
-                                    tooltip: showFloatingPreview ? 'Dock Preview' : 'Float Preview',
+                                    icon: Icon(showFloatingPreview
+                                        ? Icons.picture_in_picture
+                                        : Icons.open_in_new),
+                                    tooltip: showFloatingPreview
+                                        ? 'Dock Preview'
+                                        : 'Float Preview',
                                     iconSize: 18,
                                   ),
                                 ],
@@ -290,40 +300,45 @@ class _ScaffoldBody extends StatelessWidget {
                         ),
                         // Preview Content
                         Expanded(
-                          child: showFloatingPreview 
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).brightness == Brightness.dark
-                                      ? Colors.grey[800]!.withOpacity(0.3)
-                                      : Colors.grey[100]!.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.open_in_new,
-                                        size: 48,
-                                        color: Theme.of(context).brightness == Brightness.dark
-                                            ? Colors.grey[600]
-                                            : Colors.grey[400],
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Text(
-                                        'Preview is floating',
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness == Brightness.dark
+                          child: showFloatingPreview
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.grey[800]!.withOpacity(0.3)
+                                        : Colors.grey[100]!.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.open_in_new,
+                                          size: 48,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
                                               ? Colors.grey[600]
                                               : Colors.grey[400],
-                                          fontSize: 16,
                                         ),
-                                      ),
-                                    ],
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          'Preview is floating',
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.grey[600]
+                                                    : Colors.grey[400],
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )
-                            : const ThemePreview(),
+                                )
+                              : const ThemePreview(),
                         ),
                       ],
                     ),
@@ -406,12 +421,12 @@ class _VerticalSidebar extends StatelessWidget {
                   Text(
                     'Theme Builder',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.grey[800],
-                    ),
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.grey[800],
+                        ),
                   ),
                 ],
               ),
@@ -425,25 +440,41 @@ class _VerticalSidebar extends StatelessWidget {
                     icon: Icons.color_lens,
                     label: 'Basic',
                     isSelected: state.editMode == EditMode.basic,
-                    onTap: () => context.read<HomeCubit>().editModeChanged(EditMode.basic),
+                    onTap: () => context
+                        .read<HomeCubit>()
+                        .editModeChanged(EditMode.basic),
                   ),
                   _SidebarItem(
                     icon: Icons.tune,
                     label: 'Advanced',
                     isSelected: state.editMode == EditMode.advanced,
-                    onTap: () => context.read<HomeCubit>().editModeChanged(EditMode.advanced),
+                    onTap: () => context
+                        .read<HomeCubit>()
+                        .editModeChanged(EditMode.advanced),
                   ),
                   _SidebarItem(
                     icon: Icons.settings,
                     label: 'App Config',
                     isSelected: state.editMode == EditMode.appConfig,
-                    onTap: () => context.read<HomeCubit>().editModeChanged(EditMode.appConfig),
+                    onTap: () => context
+                        .read<HomeCubit>()
+                        .editModeChanged(EditMode.appConfig),
                   ),
                   _SidebarItem(
                     icon: Icons.view_module,
                     label: 'Variations',
                     isSelected: state.editMode == EditMode.variations,
-                    onTap: () => context.read<HomeCubit>().editModeChanged(EditMode.variations),
+                    onTap: () => context
+                        .read<HomeCubit>()
+                        .editModeChanged(EditMode.variations),
+                  ),
+                  _SidebarItem(
+                    icon: Icons.extension,
+                    label: 'Modules',
+                    isSelected: state.editMode == EditMode.modules,
+                    onTap: () => context
+                        .read<HomeCubit>()
+                        .editModeChanged(EditMode.modules),
                   ),
                 ],
               ),
@@ -469,9 +500,9 @@ class _VerticalSidebar extends StatelessWidget {
                   Text(
                     'Configuration',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                    ),
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
                   const SizedBox(height: 12),
                   const Material3Switch(),
@@ -523,7 +554,7 @@ class _SidebarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: Material(
@@ -536,7 +567,9 @@ class _SidebarItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: isSelected
-                  ? (isDark ? Colors.blue[600]!.withOpacity(0.2) : Colors.blue[50])
+                  ? (isDark
+                      ? Colors.blue[600]!.withOpacity(0.2)
+                      : Colors.blue[50])
                   : Colors.transparent,
               border: isSelected
                   ? Border.all(
@@ -558,12 +591,13 @@ class _SidebarItem extends StatelessWidget {
                 Text(
                   label,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontFamily: 'Inter',
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    color: isSelected
-                        ? (isDark ? Colors.blue[300] : Colors.blue[600])
-                        : (isDark ? Colors.grey[300] : Colors.grey[700]),
-                  ),
+                        fontFamily: 'Inter',
+                        fontWeight:
+                            isSelected ? FontWeight.w600 : FontWeight.w500,
+                        color: isSelected
+                            ? (isDark ? Colors.blue[300] : Colors.blue[600])
+                            : (isDark ? Colors.grey[300] : Colors.grey[700]),
+                      ),
                 ),
               ],
             ),
@@ -593,8 +627,11 @@ class _EditorContent extends StatelessWidget {
           case EditMode.variations:
             editor = const VariationsEditor();
             break;
+          case EditMode.modules:
+            editor = const ModulesEditor();
+            break;
         }
-        
+
         return Padding(
           padding: const EdgeInsets.all(24),
           child: editor,
