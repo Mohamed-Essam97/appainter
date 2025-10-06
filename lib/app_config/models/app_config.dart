@@ -545,6 +545,8 @@ class AppConfig extends Equatable {
   final String name;
   final String version;
   final String packageName;
+  final String url;
+  final bool isProduction;
   final AppSettings settings;
   final AppVariations variations;
   final DrawerConfig drawer;
@@ -556,6 +558,8 @@ class AppConfig extends Equatable {
     required this.name,
     required this.version,
     required this.packageName,
+    required this.url,
+    required this.isProduction,
     required this.settings,
     required this.variations,
     required this.drawer,
@@ -574,6 +578,8 @@ class AppConfig extends Equatable {
       name: 'Lasirena',
       version: '1.0.0',
       packageName: 'com.lasirena.app',
+      url: 'https://example.com',
+      isProduction: false,
       settings: AppSettings.defaultSettings(),
       variations: AppVariations.defaultVariations(),
       drawer: DrawerConfig.defaultConfig(),
@@ -588,6 +594,8 @@ class AppConfig extends Equatable {
       'name': name,
       'version': version,
       'packageName': packageName,
+      'url': url,
+      'isProduction': isProduction,
       'settings': settings.toJson(),
       'variations': variations.toJson(),
       'drawer': drawer.toJson(),
@@ -602,6 +610,8 @@ class AppConfig extends Equatable {
       name: json['name'] as String,
       version: json['version'] as String,
       packageName: json['packageName'] as String,
+      url: json['url'] as String? ?? 'https://example.com',
+      isProduction: json['isProduction'] as bool? ?? false,
       settings: AppSettings.fromJson(json['settings'] as Map<String, dynamic>? ?? const {}),
       variations: AppVariations.fromJson(json['variations'] as Map<String, dynamic>),
       drawer: DrawerConfig.fromJson(json['drawer'] as Map<String, dynamic>? ?? const {}),
@@ -610,7 +620,7 @@ class AppConfig extends Equatable {
   }
 
   @override
-  List<Object?> get props => [logo, icon, name, version, packageName, settings, variations, drawer, modules];
+  List<Object?> get props => [logo, icon, name, version, packageName, url, isProduction, settings, variations, drawer, modules];
 
   AppConfig copyWith({
     AppLogo? logo,
@@ -618,6 +628,8 @@ class AppConfig extends Equatable {
     String? name,
     String? version,
     String? packageName,
+    String? url,
+    bool? isProduction,
     AppSettings? settings,
     AppVariations? variations,
     DrawerConfig? drawer,
@@ -629,6 +641,8 @@ class AppConfig extends Equatable {
       name: name ?? this.name,
       version: version ?? this.version,
       packageName: packageName ?? this.packageName,
+      url: url ?? this.url,
+      isProduction: isProduction ?? this.isProduction,
       settings: settings ?? this.settings,
       variations: variations ?? this.variations,
       drawer: drawer ?? this.drawer,

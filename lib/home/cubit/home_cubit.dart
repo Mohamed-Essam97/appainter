@@ -101,6 +101,16 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(appConfig: updatedConfig));
   }
 
+  void updateAppUrl(String url) {
+    final updatedConfig = state.appConfig.copyWith(url: url);
+    emit(state.copyWith(appConfig: updatedConfig));
+  }
+
+  void updateAppProduction(bool isProduction) {
+    final updatedConfig = state.appConfig.copyWith(isProduction: isProduction);
+    emit(state.copyWith(appConfig: updatedConfig));
+  }
+
   void updateAppIcon(ImageAsset icon) {
     final updatedConfig = state.appConfig.copyWith(icon: icon);
     emit(state.copyWith(appConfig: updatedConfig));

@@ -56,6 +56,25 @@ class _AppInfoSection extends ExpansionPanelItem {
               onChanged: (value) =>
                   context.read<HomeCubit>().updatePackageName(value),
             ),
+            _TextFieldRow(
+              label: 'URL',
+              value: state.appConfig.url,
+              onChanged: (value) {
+                String updatedUrl = value;
+                if (value.isNotEmpty &&
+                    !value.startsWith('https://') &&
+                    !value.startsWith('http://')) {
+                  updatedUrl = 'https://$value';
+                }
+                context.read<HomeCubit>().updateAppUrl(updatedUrl);
+              },
+            ),
+            _SwitchRow(
+              label: 'Production Environment',
+              value: state.appConfig.isProduction,
+              onChanged: (value) =>
+                  context.read<HomeCubit>().updateAppProduction(value),
+            ),
             _ImagePickerRow(
               label: 'App Icon',
               imageAsset: state.appConfig.icon,
@@ -383,7 +402,8 @@ class _DrawerItemsList extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: drawer.items.length,
-          onReorder: (oldIndex, newIndex) => _reorderDrawerItems(context, oldIndex, newIndex),
+          onReorder: (oldIndex, newIndex) =>
+              _reorderDrawerItems(context, oldIndex, newIndex),
           itemBuilder: (context, index) {
             final item = drawer.items[index];
             return Padding(
@@ -837,8 +857,6 @@ class _AppVariationsSection extends ExpansionPanelItem {
     context.read<HomeCubit>().updateAppVariations(updatedVariations);
   }
 }
-
-
 
 class _VariationDropdownRow extends StatelessWidget {
   const _VariationDropdownRow({
