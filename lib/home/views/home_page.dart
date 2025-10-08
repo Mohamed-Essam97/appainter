@@ -279,15 +279,19 @@ class _ScaffoldBody extends StatelessWidget {
                               Row(
                                 children: [
                                   _DeviceSizeButton(
-                                      Icons.phone_android, 'Phone'),
+                                    Icons.phone_android,
+                                    'Phone',
+                                  ),
                                   const SizedBox(width: 8),
                                   _DeviceSizeButton(Icons.tablet_mac, 'Tablet'),
                                   const SizedBox(width: 8),
                                   IconButton(
                                     onPressed: onToggleFloatingPreview,
-                                    icon: Icon(showFloatingPreview
-                                        ? Icons.picture_in_picture
-                                        : Icons.open_in_new),
+                                    icon: Icon(
+                                      showFloatingPreview
+                                          ? Icons.picture_in_picture
+                                          : Icons.open_in_new,
+                                    ),
                                     tooltip: showFloatingPreview
                                         ? 'Dock Preview'
                                         : 'Float Preview',
