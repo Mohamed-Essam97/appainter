@@ -2,6 +2,7 @@ import 'package:appainter/advanced_theme/advanced_theme.dart';
 import 'package:appainter/app_config/app_config.dart';
 import 'package:appainter/basic_theme/basic_theme.dart';
 import 'package:appainter/common/common.dart';
+import 'package:appainter/community_mobile_integration/widgets/community_mobile_export_button.dart';
 import 'package:appainter/home/home.dart';
 import 'package:appainter/modules/view/modules_editor.dart';
 import 'package:appainter/theme_preview/theme_preview.dart';
@@ -103,6 +104,11 @@ class HomePageState extends State<HomePage> {
         const HorizontalPadding(size: PaddingSize.medium),
         ExportButton(
           key: const Key('homePage_exportButton'),
+          color: color,
+        ),
+        const HorizontalPadding(size: PaddingSize.medium),
+        CommunityMobileExportButton(
+          key: const Key('homePage_communityMobileExportButton'),
           color: color,
         ),
         const HorizontalPadding(size: PaddingSize.medium),

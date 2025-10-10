@@ -2,6 +2,7 @@ import 'package:appainter/advanced_theme/advanced_theme.dart';
 import 'package:appainter/analytics/analytics.dart';
 import 'package:appainter/home/home.dart';
 import 'package:appainter/app_config/app_config.dart';
+import 'package:appainter/community_mobile_integration/community_mobile_export_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
@@ -14,12 +15,15 @@ class HomeCubit extends Cubit<HomeState> {
   final HomeRepository homeRepo;
   final AnalyticsRepository analyticsRepo;
   final AdvancedThemeCubit advancedThemeCubit;
+  final CommunityMobileExportService _communityMobileExportService;
 
   HomeCubit({
     required this.homeRepo,
     required this.advancedThemeCubit,
     required this.analyticsRepo,
-  }) : super(HomeState(appConfig: AppConfig.defaultConfig()));
+    CommunityMobileExportService? communityMobileExportService,
+  }) : _communityMobileExportService = communityMobileExportService ?? CommunityMobileExportService(),
+       super(HomeState(appConfig: AppConfig.defaultConfig()));
 
   void editModeChanged(EditMode mode) {
     if (mode != state.editMode) {
@@ -134,5 +138,35 @@ class HomeCubit extends Cubit<HomeState> {
   void updateModulesConfig(ModulesConfig modules) {
     final updatedConfig = state.appConfig.copyWith(modules: modules);
     emit(state.copyWith(appConfig: updatedConfig));
+  }
+
+  /// Export theme and configuration for community mobile app
+  Future<bool> exportForCommunityMobile({
+    required ThemeData lightTheme,
+    required ThemeData darkTheme,
+    String? customBaseUrl,
+  }) async {
+    return await _communityMobileExportService.exportForCommunityMobile(
+      lightTheme: lightTheme,
+      darkTheme: darkTheme,
+      appConfig: state.appConfig,
+      customBaseUrl: customBaseUrl,
+    );
+  }
+
+  /// Build APK with the selected theme configuration
+  Future<bool> buildApkWithTheme({
+    required ThemeData lightTheme,
+    required ThemeData darkTheme,
+    String? customBaseUrl,
+    required String communityMobileProjectPath,
+  }) async {
+    return await CommunityMobileExportService.buildApkWithTheme(
+      lightTheme: lightTheme,
+      darkTheme: darkTheme,
+      appConfig: state.appConfig,
+      baseUrl: customBaseUrl,
+      projectPath: communityMobileProjectPath,
+    );
   }
 }
