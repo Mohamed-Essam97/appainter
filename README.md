@@ -24,24 +24,29 @@ A comprehensive material theme editor and generator for Flutter that allows you 
 ## 🚀 Features
 
 ### 🎨 **Theme Customization**
+
 - **Color Themes**: Customize primary, secondary, surface, and background colors
 - **Typography**: Choose from Google Fonts and configure text styles
 - **Component Themes**: Customize buttons, cards, app bars, tabs, and more
 - **Material 3 Support**: Full support for Material Design 3 specifications
 
 ### 🔧 **Advanced Configuration**
+
 - **App Variations**: Configure UI component variations for different app sections
 - **Real-time Preview**: See changes instantly in the mobile preview
 - **Export/Import**: Save and load theme configurations
 - **Cross-platform**: Available for Web, macOS, Windows, and Linux
 
 ### 📱 **Mobile Preview**
+
 - **Live Preview**: Real-time preview of your theme on different UI components
 - **Multiple Tabs**: Preview buttons, inputs, selections, text, and variations
 - **Responsive Design**: See how your theme looks across different screen sizes
 
 ### 🎯 **UI Component Variations**
+
 Configure different visual styles for:
+
 - **Feeds Cards**: Social media feed layouts
 - **Facility Request Cards**: Service request interfaces
 - **Gate Pass Cards**: Access control interfaces
@@ -54,15 +59,17 @@ Configure different visual styles for:
 ## 🌐 Getting Started
 
 ### Web Application
+
 Access Appainter directly through your browser:
 **[https://zeshuaro.github.io/appainter/](https://zeshuaro.github.io/appainter/)**
 
 ### Desktop Applications
+
 Download the desktop version for your operating system:
 **[Download from GitHub Releases](https://github.com/zeshuaro/appainter/releases)**
 
 - 🍎 **macOS**: `.dmg` installer
-- 🪟 **Windows**: `.exe` installer  
+- 🪟 **Windows**: `.exe` installer
 - 🐧 **Linux**: `.AppImage` or `.deb` package
 
 ## 📖 How to Use Appainter
@@ -70,18 +77,21 @@ Download the desktop version for your operating system:
 ### 1. **Basic Theme Configuration**
 
 #### **Color Customization**
+
 1. Navigate to the **Color Theme** section
 2. Choose your primary and secondary colors using the color picker
 3. Adjust surface, background, and error colors as needed
 4. See real-time changes in the preview panel
 
 #### **Typography Setup**
+
 1. Go to the **Text Theme** section
 2. Select a font family from Google Fonts
 3. Configure text sizes for headlines, body text, and captions
 4. Preview text styles in the mobile preview
 
 #### **Component Styling**
+
 1. Visit individual component sections (Buttons, Cards, App Bar, etc.)
 2. Customize colors, shapes, and sizes
 3. Configure elevation and shadows
@@ -90,6 +100,7 @@ Download the desktop version for your operating system:
 ### 2. **App Variations Configuration**
 
 #### **Setting Up Variations**
+
 1. Navigate to the **App Config** section
 2. Click on the **Variations** tab
 3. For each component type, select from available variations:
@@ -97,6 +108,7 @@ Download the desktop version for your operating system:
    - Each variation corresponds to a PNG preview image
 
 #### **Adding Variation Images**
+
 1. Create a folder: `assets/variations/` in your project
 2. Add PNG images with naming convention:
    ```
@@ -110,6 +122,7 @@ Download the desktop version for your operating system:
 3. Images will automatically appear in the preview
 
 #### **Variation Types Available**
+
 - **feedsCardType**: Social feed layouts
 - **facilityRequestCardType**: Service request cards
 - **gatePassCardType**: Access control cards
@@ -123,6 +136,7 @@ Download the desktop version for your operating system:
 ### 3. **Preview and Testing**
 
 #### **Mobile Preview Tabs**
+
 - **Buttons**: Test button styles and interactions
 - **Inputs**: Preview text fields and form elements
 - **Selections**: Check checkboxes, radio buttons, and switches
@@ -130,6 +144,7 @@ Download the desktop version for your operating system:
 - **Variations**: See your configured UI component variations
 
 #### **Real-time Updates**
+
 - All changes are reflected immediately in the preview
 - Switch between light and dark themes
 - Test different screen orientations
@@ -137,18 +152,22 @@ Download the desktop version for your operating system:
 ### 4. **Exporting Your Theme**
 
 #### **JSON Export**
+
 1. Click the **Export** button in the top toolbar
 2. Save the generated JSON file
 3. The file contains all your theme configurations
 
 #### **App Config Export**
+
 1. Export includes both theme data and app variations
 2. Use the exported configuration in your Flutter app
 
 ## 🛠️ Using the Generated Theme
 
 ### **Installation**
+
 1. Add `json_theme` dependency to your `pubspec.yaml`:
+
    ```yaml
    dependencies:
      json_theme: ^7.0.0+3
@@ -162,6 +181,7 @@ Download the desktop version for your operating system:
    ```
 
 ### **Implementation**
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
@@ -194,6 +214,7 @@ class MyApp extends StatelessWidget {
 ```
 
 ### **Using Custom Fonts**
+
 If you've selected a custom font:
 
 1. Download the font from [Google Fonts](https://fonts.google.com/)
@@ -211,23 +232,28 @@ For complete implementation examples, see [USAGE.md](USAGE.md).
 ## 🔧 Development
 
 ### **Prerequisites**
+
 - Flutter SDK (latest stable version)
 - Dart SDK
 - Git
 
 ### **Setup**
+
 1. Fork and clone the repository:
+
    ```bash
    git clone https://github.com/your-username/appainter.git
    cd appainter
    ```
 
 2. Install dependencies:
+
    ```bash
    flutter pub get
    ```
 
 3. Generate code:
+
    ```bash
    flutter pub run build_runner build --delete-conflicting-outputs
    ```
@@ -238,6 +264,7 @@ For complete implementation examples, see [USAGE.md](USAGE.md).
    ```
 
 ### **Project Structure**
+
 ```
 lib/
 ├── app_config/          # App configuration and variations
